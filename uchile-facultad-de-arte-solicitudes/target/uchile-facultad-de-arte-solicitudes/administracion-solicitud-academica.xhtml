@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			inicializarDatosSeguridad();
+		});
+	</script>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+
+	<div class="banner">
+		<img src='banner_1.jpg' border='0' alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+		<h:form id="formSolicitudAcademica">
+			<p:remoteCommand name="inicializarDatosSeguridad"
+				actionListener="#{administracionSolicitudAcademicaBean.llamarRemoteCommandSeguridad()}"
+				global="false" update="@form" />
+
+			<p:growl life="3000" id="mensajeSolicitudAcademica" showDetail="true" />
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panelInicio" toggleable="true" toggleSpeed="500"
+				closeSpeed="500" header="Registro de Solicitud Académica">
+
+				<p:panelGrid id="pgInicio" cellpadding="0" cellspacing="0"
+					width="300" border="0" style="">
+
+					<p:row>
+						<p:column>
+							<p:calendar id="calendarEntrada_sol_aca" pages="2" locale="es"
+								value="#{administracionSolicitudAcademicaBean.fechaInicial}"
+								onmouseover="menuContextDisabled();"
+								onmouseout="menuContextEnabled();"
+								mindate="#{administracionSolicitudAcademicaBean.limiteInferiorFechaInicial}"
+								maxdate="#{administracionSolicitudAcademicaBean.limiteSuperiorFechaInicial}"
+								pattern="dd/MM/yyyy" readOnlyInput="true"
+								onkeypress="javascript:return soloTabulador(event);"
+								onkeydown="var keycode;if(window.event)keycode=window.event.keyCode;if(window.event.keyCode = 8)return false;">
+								<p:ajax event="dateSelect" global="false"
+									update="calendarEntrada_sol_aca calendarSalida_sol_aca"
+									listener="#{administracionSolicitudAcademicaBean.cambiarFechaFinal}" />
+							</p:calendar>
+						</p:column>
+
+						<p:column>
+							<p:calendar id="calendarSalida_sol_aca" pages="2" locale="es"
+								value="#{administracionSolicitudAcademicaBean.fechaFinal}"
+								onmouseover="menuContextDisabled();"
+								onmouseout="menuContextEnabled();"
+								mindate="#{administracionSolicitudAcademicaBean.limiteInferiorFechaFinal}"
+								maxdate="#{administracionSolicitudAcademicaBean.limiteSuperiorFechaFinal}"
+								pattern="dd/MM/yyyy" readOnlyInput="true"
+								onkeypress="javascript:return soloTabulador(event);"
+								onkeydown="var keycode;if(window.event)keycode=window.event.keyCode;if(window.event.keyCode = 8)return false;">
+							</p:calendar>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton id="btn1" value="Buscar Solicitudes Académicas"
+								action="#{administracionSolicitudAcademicaBean.buscarSolicitudAcademica}"
+								update=":formSolicitudAcademica:pgInicio :formSolicitudAcademica:solicitudAcademicaTable" />
+						</p:column>
+						<p:column colspan="2">
+							<p:commandButton id="btnLimpiar" value="Limpiar Formulario"
+								action="#{administracionSolicitudAcademicaBean.limpiarFormularioSolicitudAcademica}"
+								update=":formSolicitudAcademica:pgInicio :formSolicitudAcademica:solicitudAcademicaTable :formSolicitudAcademica:mensajeSolicitudAcademica" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:dataTable style="width:900px;" id="solicitudAcademicaTable"
+					var="detalleSolicitudAcademica"
+					value="#{administracionSolicitudAcademicaBean.listaSolicitudAcademicaDTO}"
+					rows="10" rowIndexVar="rowIndex" paginator="true"
+					emptyMessage="No existen registros asociados">
+					<p:column headerText="" width="8" style="text-align:left;">
+        						#{rowIndex+1}
+    						</p:column>
+					<p:column width="90" style="text-align:left;" headerText="Nombre">
+						<h:outputText
+							value="#{detalleSolicitudAcademica.nombrePersonaSolicitudAcademica}" />
+					</p:column>
+					<p:column width="90" style="text-align:left;"
+						headerText="Apellido Paterno">
+						<h:outputText
+							value="#{detalleSolicitudAcademica.apellidoPaternoPersonaSolicitudAcademica}" />
+					</p:column>
+					<p:column width="70" style="text-align:left;" headerText="RUT">
+						<h:outputText
+							value="#{detalleSolicitudAcademica.rutPersonaSolicitudAcademica}" />
+					</p:column>
+					<p:column width="80" style="text-align:left;"
+						headerText="Fecha del Registro">
+						<h:outputText value="#{detalleSolicitudAcademica.sfechaSolicitud}" />
+					</p:column>
+					<p:column width="100" style="text-align:center;">
+						<p:commandButton id="btnVerSolicitudAcademica"
+							action="#{administracionSolicitudAcademicaBean.mostrarDialog}"
+							onsuccess="PF('widgetDesactivaDialog').show();"
+							value="Ver Solicitud"
+							update=":formSolicitudAcademica:estadoDlgPg">
+							<f:setPropertyActionListener value="#{detalleSolicitudAcademica}" target="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<p:dialog id="desactivaDialog" widgetVar="widgetDesactivaDialog"
+				modal="true" closable="false" width="1200" position="top">
+				<p:scrollPanel id="estadoDlgPg">
+					<p:panelGrid>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Nombre Completo"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp4">
+							<p:outputLabel id="inp4"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.nombrePersonaSolicitudAcademica}  #{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.apellidoPaternoPersonaSolicitudAcademica} #{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.apellidoMaternoPersonaSolicitudAcademica}">
+							</p:outputLabel>
+						</p:column>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="RUT"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp7">
+							<p:outputLabel id="inp7"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.rutPersonaSolicitudAcademica}">
+							</p:outputLabel>
+						</p:column>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Programa"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp8" styleClass="titulos" >
+							<p:outputLabel id="selPrograma"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.programaUniversidad}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Correo electrónico"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp9">
+							<p:outputLabel id="inp9"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.mailMember}">
+							</p:outputLabel>
+						</p:column>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Año de Ingreso"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp10">
+							<p:outputLabel id="inp10"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.anhoIngreso}">
+							</p:outputLabel>
+						</p:column>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Tipo de Solicitud"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp11">
+							<p:outputLabel id="rad1"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.tipoSolicitud}"></p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Fundamente su Solicitud"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp12" >
+							<p:inputTextarea id="inp12" styleClass="fundamente-solicitud-adm"
+								readonly="true"
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.fundamentacionSolicitud}">
+							</p:inputTextarea>
+						</p:column>
+					</p:row>
+					<p:row  rendered="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.archivoAdjunto}">
+						<p:column styleClass="titulos" colspan="1">
+							<p:outputLabel value="Nombre del Archivo"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp13">
+							<p:outputLabel id="inp13" 
+								value="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.nombreArchivo}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row rendered="#{administracionSolicitudAcademicaBean.verSolicitudAcademicaDTO.archivoAdjunto}">
+						<p:column />
+						<p:column>
+						<p:commandButton value="Descargar" ajax="false"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload value="#{administracionSolicitudAcademicaBean.file}" />
+						</p:commandButton>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<div class="texto-saludate"> </div>
+							<div class="texto-saludate"> </div>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column width="75">
+							<p:commandButton value="Cerrar"
+								onclick="PF('widgetDesactivaDialog').hide();" />
+						</p:column>
+						<p:column width="50" />
+
+					</p:row>
+				</p:panelGrid>
+				</p:scrollPanel>
+			</p:dialog>
+
+
+		</h:form>
+	</div>
+
+
+
+
+</h:body>
+</html>
+

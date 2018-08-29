@@ -1,0 +1,82 @@
+package com.manashiki.uchilearte.servicio.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.manashiki.uchilearte.negocio.dao.FactoryNegocioDAO;
+import com.manashiki.uchilearte.negocio.exception.NegocioImplException;
+import com.manashiki.uchilearte.negocio.model.AsignaturaTomadaProgramaActivoSemestreModel;
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.AsignaturaTomadaProgramaActivoSemestreDTO;
+import com.manashiki.uchilearte.servicio.IAsignaturaTomadaProgramaActivoSemestreServicio;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+import com.manashiki.uchilearte.servicio.mapper.AsignaturaTomadaProgramaActivoSemestreDTOMapper;
+
+
+@Component
+public class AsignaturaTomadaProgramaActivoSemestreServicio implements IAsignaturaTomadaProgramaActivoSemestreServicio{
+	
+	private static final Logger objLog = LoggerFactory.getLogger(AsignaturaTomadaProgramaActivoSemestreServicio.class);
+	
+	@Autowired
+	FactoryNegocioDAO factoryNegocioDAO;
+	
+	public AsignaturaTomadaProgramaActivoSemestreDTO crearAsignaturaTomadaProgramaActivoSemestreDTO(AsignaturaTomadaProgramaActivoSemestreDTO objAsignaturaTomadaProgramaActivoSemestreDTO ) {
+		objLog.info("INI - crearAsignaturaTomadaProgramaActivoSemestreDTO");
+		AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreModel();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreDTOToAsignaturaTomadaProgramaActivoSemestreModel(objAsignaturaTomadaProgramaActivoSemestreDTO);
+		
+		
+		programaActivoSemestreAsignaturaTomada = factoryNegocioDAO.getAsignaturaTomadaProgramaActivoSemestreNegocioDAO().crearAsignaturaTomadaProgramaActivoSemestreModel(programaActivoSemestreAsignaturaTomada);
+		
+		objAsignaturaTomadaProgramaActivoSemestreDTO = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreDTO(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - crearAsignaturaTomadaProgramaActivoSemestreDTO "+objAsignaturaTomadaProgramaActivoSemestreDTO.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return objAsignaturaTomadaProgramaActivoSemestreDTO;
+	}
+
+	public AsignaturaTomadaProgramaActivoSemestreDTO actualizarAsignaturaTomadaProgramaActivoSemestreDTO(AsignaturaTomadaProgramaActivoSemestreDTO objAsignaturaTomadaProgramaActivoSemestreDTO ) {
+		objLog.info("INI - actualizarAsignaturaTomadaProgramaActivoSemestreDTO "+objAsignaturaTomadaProgramaActivoSemestreDTO.getIdAsignaturaTomadaProgramaActivoSemestre());
+		AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreModel();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreDTOToAsignaturaTomadaProgramaActivoSemestreModel(objAsignaturaTomadaProgramaActivoSemestreDTO);
+		
+		programaActivoSemestreAsignaturaTomada = factoryNegocioDAO.getAsignaturaTomadaProgramaActivoSemestreNegocioDAO().actualizarAsignaturaTomadaProgramaActivoSemestreModel(programaActivoSemestreAsignaturaTomada);
+		
+		objAsignaturaTomadaProgramaActivoSemestreDTO = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreDTO(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - actualizarAsignaturaTomadaProgramaActivoSemestreDTO "+objAsignaturaTomadaProgramaActivoSemestreDTO.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return objAsignaturaTomadaProgramaActivoSemestreDTO;
+	}
+
+	public AsignaturaTomadaProgramaActivoSemestreDTO buscarAsignaturaTomadaProgramaActivoSemestrexIdDTO(AsignaturaTomadaProgramaActivoSemestreDTO objAsignaturaTomadaProgramaActivoSemestreDTO ) throws ServicioImplException{
+		objLog.info("INI - buscarAsignaturaTomadaProgramaActivoSemestrexIdDTO "+objAsignaturaTomadaProgramaActivoSemestreDTO.getIdAsignaturaTomadaProgramaActivoSemestre());
+		AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreModel();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreDTOToAsignaturaTomadaProgramaActivoSemestreModel(objAsignaturaTomadaProgramaActivoSemestreDTO);
+		
+		try {
+			programaActivoSemestreAsignaturaTomada=factoryNegocioDAO.getAsignaturaTomadaProgramaActivoSemestreNegocioDAO().buscarAsignaturaTomadaProgramaActivoSemestrexIdModel(programaActivoSemestreAsignaturaTomada);
+		} catch (NegocioImplException e) {
+			objLog.error("error en implementacion de Negocio:: ");
+			throw new ServicioImplException(e);
+		}
+		objAsignaturaTomadaProgramaActivoSemestreDTO = AsignaturaTomadaProgramaActivoSemestreDTOMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreDTO(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - buscarAsignaturaTomadaProgramaActivoSemestrexIdDTO "+objAsignaturaTomadaProgramaActivoSemestreDTO.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return objAsignaturaTomadaProgramaActivoSemestreDTO;
+	}
+	
+	public List<AsignaturaTomadaProgramaActivoSemestreDTO> listarAsignaturaTomadaProgramaActivoSemestreDTO() {
+		objLog.info("INI - listarAsignaturaTomadaProgramaActivoSemestreesDTO");
+		List<AsignaturaTomadaProgramaActivoSemestreDTO> listaAsignaturaTomadaProgramaActivoSemestreDTO=new ArrayList<AsignaturaTomadaProgramaActivoSemestreDTO>();
+		List<AsignaturaTomadaProgramaActivoSemestreModel> listaAsignaturaTomadaProgramaActivoSemestrees = new ArrayList<AsignaturaTomadaProgramaActivoSemestreModel>();
+		
+		listaAsignaturaTomadaProgramaActivoSemestrees=factoryNegocioDAO.getAsignaturaTomadaProgramaActivoSemestreNegocioDAO().listarAsignaturaTomadaProgramaActivoSemestreModel();
+		
+		listaAsignaturaTomadaProgramaActivoSemestreDTO = AsignaturaTomadaProgramaActivoSemestreDTOMapper.ListAsignaturaTomadaProgramaActivoSemestreModelToListAsignaturaTomadaProgramaActivoSemestreDTO(listaAsignaturaTomadaProgramaActivoSemestrees);
+		
+		objLog.info("FIN - listarAsignaturaTomadaProgramaActivoSemestreesDTO "+listaAsignaturaTomadaProgramaActivoSemestreDTO.size());
+		return listaAsignaturaTomadaProgramaActivoSemestreDTO;
+	}
+	
+}

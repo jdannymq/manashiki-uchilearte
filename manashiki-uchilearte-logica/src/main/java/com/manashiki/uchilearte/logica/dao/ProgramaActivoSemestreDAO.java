@@ -1,0 +1,14 @@
+package com.manashiki.uchilearte.logica.dao;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.logica.entidad.ProgramaActivoSemestreEntity;
+import com.manashiki.uchilearte.logica.exception.PersistenceImplException;
+
+public interface ProgramaActivoSemestreDAO{
+	
+	public ProgramaActivoSemestreEntity crearProgramaActivoSemestreEntity(ProgramaActivoSemestreEntity objProgramaActivoSemestreEntity );
+	public ProgramaActivoSemestreEntity actualizarProgramaActivoSemestreEntity(ProgramaActivoSemestreEntity objProgramaActivoSemestreEntity );
+ 	public ProgramaActivoSemestreEntity buscarProgramaActivoSemestrexIdEntity(ProgramaActivoSemestreEntity objProgramaActivoSemestreEntity ) throws PersistenceImplException;
+ 	public List<ProgramaActivoSemestreEntity> listarProgramaActivoSemestreEntity();
+}

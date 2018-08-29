@@ -1,0 +1,15 @@
+package com.manashiki.uchilearte.logica.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.manashiki.uchilearte.logica.entidad.AlumnoEntity;
+import com.manashiki.uchilearte.logica.entidad.AsignaturaProgramaActivoSemestreEntity;
+import com.manashiki.uchilearte.logica.entidad.AsignaturaTomadaProgramaActivoSemestreEntity;
+
+public interface AsignaturaTomadaProgramaActivoSemestreRepository extends JpaRepository<AsignaturaTomadaProgramaActivoSemestreEntity, Integer> {
+	
+	List<AsignaturaTomadaProgramaActivoSemestreEntity> findByFkIdAsignaturaProgramaActivoSemestreAndFkIdAlumnoAndEstadoAsignaturaProgramaActivoSemestreTomada(
+			AsignaturaProgramaActivoSemestreEntity fkIdAsignaturaProgramaActivoSemestre,  AlumnoEntity fkIdAlumno, Integer estadoAsignaturaProgramaActivoSemestreTomada);
+}

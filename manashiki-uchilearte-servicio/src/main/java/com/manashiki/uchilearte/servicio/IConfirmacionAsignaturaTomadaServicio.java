@@ -1,0 +1,14 @@
+package com.manashiki.uchilearte.servicio;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.ConfirmacionAsignaturaTomadaDTO;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+
+public interface IConfirmacionAsignaturaTomadaServicio{
+	
+	public ConfirmacionAsignaturaTomadaDTO crearConfirmacionAsignaturaTomadaDTO(ConfirmacionAsignaturaTomadaDTO objConfirmacionAsignaturaTomadaDTO );
+	public ConfirmacionAsignaturaTomadaDTO actualizarConfirmacionAsignaturaTomadaDTO(ConfirmacionAsignaturaTomadaDTO objConfirmacionAsignaturaTomadaDTO );
+ 	public ConfirmacionAsignaturaTomadaDTO buscarConfirmacionAsignaturaTomadaxIdDTO(ConfirmacionAsignaturaTomadaDTO objConfirmacionAsignaturaTomadaDTO ) throws ServicioImplException;
+ 	public List<ConfirmacionAsignaturaTomadaDTO> listarConfirmacionAsignaturaTomadaDTO();
+}

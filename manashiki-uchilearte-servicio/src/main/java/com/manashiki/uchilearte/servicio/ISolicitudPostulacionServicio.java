@@ -1,0 +1,21 @@
+package com.manashiki.uchilearte.servicio;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.SolicitudPostulacionDTO;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+
+public interface ISolicitudPostulacionServicio{
+	
+	public SolicitudPostulacionDTO crearSolicitudPostulacionDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO);
+	public SolicitudPostulacionDTO actualizarSolicitudPostulacionDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO);
+	public SolicitudPostulacionDTO buscarSolicitudPostulacionxIdDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO) throws ServicioImplException;
+	public SolicitudPostulacionDTO buscarSolicitudPostulacionxRutPersonaSolicitudPostulacionDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO) throws ServicioImplException;
+//	public SolicitudPostulacionDTO buscarSolicitudPostulacionxNombrePersonaSolicitudPostulacionDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO) throws ServicioImplException;
+	public List<SolicitudPostulacionDTO> listarSolicitudPostulacionesDTO();
+	public List<SolicitudPostulacionDTO> listarSolicitudPostulacionxApellidoPaternoPersonaSolicitudPostulacionDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO);
+//	public List<SolicitudPostulacionDTO> listarSolicitudPostulacionxTipoSolicitudDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO);
+	public List<SolicitudPostulacionDTO> listarSolicitudPostulacionxEntreFechasDTO(SolicitudPostulacionDTO solicitudAcademicaDTOInicial, SolicitudPostulacionDTO solicitudAcademicaDTOFinal);
+	public List<SolicitudPostulacionDTO> listarSolicitudPostulacionxEstadoDTO(SolicitudPostulacionDTO objSolicitudPostulacionDTO);
+	
+}

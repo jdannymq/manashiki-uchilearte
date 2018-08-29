@@ -1,0 +1,16 @@
+package com.manashiki.uchilearte.servicio;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.ProgramaUniversidadPostulacionDTO;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+
+public interface IProgramaUniversidadPostulacionServicio{
+	public ProgramaUniversidadPostulacionDTO crearProgramaUniversidadPostulacionDTO(ProgramaUniversidadPostulacionDTO objProgramaUniversidadPostulacionDTO);
+	public ProgramaUniversidadPostulacionDTO actualizarProgramaUniversidadPostulacionDTO(ProgramaUniversidadPostulacionDTO objProgramaUniversidadPostulacionDTO);
+	public ProgramaUniversidadPostulacionDTO buscarProgramaUniversidadPostulacionxIdDTO(ProgramaUniversidadPostulacionDTO objProgramaUniversidadPostulacionDTO) throws ServicioImplException;
+	public List<ProgramaUniversidadPostulacionDTO> listarProgramaUniversidadPostulacionDTO(); //Las Muestra Ordenadas,	
+//	de los programas ya ordenados, mostrar solo los que tengan precio.
+	public List<ProgramaUniversidadPostulacionDTO> listarProgramaUniversidadPostulacionConPrecioDTO();
+	
+}

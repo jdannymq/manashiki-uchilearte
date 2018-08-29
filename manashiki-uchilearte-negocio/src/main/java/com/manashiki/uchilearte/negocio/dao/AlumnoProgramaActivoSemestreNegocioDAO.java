@@ -1,0 +1,15 @@
+package com.manashiki.uchilearte.negocio.dao;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.negocio.exception.NegocioImplException;
+import com.manashiki.uchilearte.negocio.model.AlumnoProgramaActivoSemestreModel;
+
+
+public interface AlumnoProgramaActivoSemestreNegocioDAO{
+	
+	public AlumnoProgramaActivoSemestreModel crearAlumnoProgramaActivoSemestreModel(AlumnoProgramaActivoSemestreModel objAlumnoProgramaActivoSemestreModel );
+	public AlumnoProgramaActivoSemestreModel actualizarAlumnoProgramaActivoSemestreModel(AlumnoProgramaActivoSemestreModel objAlumnoProgramaActivoSemestreModel );
+ 	public AlumnoProgramaActivoSemestreModel buscarAlumnoProgramaActivoSemestrexIdModel(AlumnoProgramaActivoSemestreModel objAlumnoProgramaActivoSemestreModel ) throws NegocioImplException;
+ 	public List<AlumnoProgramaActivoSemestreModel> listarAlumnoProgramaActivoSemestreModel();
+}

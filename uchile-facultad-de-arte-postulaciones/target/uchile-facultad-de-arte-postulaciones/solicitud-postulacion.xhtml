@@ -1,0 +1,594 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			inicializarDatosSeguridad();
+		});
+	</script>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+
+
+	<div id="msg" />
+	<div class="banner">
+		<img src='http://s22.postimg.org/xkg3u0li9/banner_1.jpg' border='0'
+			alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+
+		<h:form id="formPostulacion">
+			<p:remoteCommand name="inicializarDatosSeguridad"
+				actionListener="#{solicitudPostulacionBean.llamarRemoteCommandSeguridad()}"
+				global="false" update="@form" />
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panel" header="Postulaciones 2018 - 2019">
+
+				<div class="texto-intro">Bienvenido al sistema de
+					Postulaciones en Línea de la Escuela de Postgrado de la Facultad de
+					Artes de la Universidad de Chile</div>
+
+				<p:messages id="mensajeSolicitudPostulacion" showDetail="true"
+					autoUpdate="true" closable="false" />
+
+				<p:wizard
+					flowListener="#{solicitudPostulacionBean.validarFlujoProceso}"
+					backLabel="Atras" nextLabel="Siguiente">
+					<p:tab id="programa" title="Programa">
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						
+						<p:panelGrid id="pgUno">
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Programa (*)"></p:outputLabel>
+								</p:column>
+								<p:column id="colInp8" styleClass="titulos" colspan="3">
+									<p:selectOneMenu id="selPrograma"
+										value="#{solicitudPostulacionBean.selecPrograma}">
+										<f:selectItem itemLabel="Seleccione Programa" itemValue="" />
+										<f:selectItems
+											value="#{solicitudPostulacionBean.listaProgramaUniversidadPostulacionDTO}"
+											var="programa" itemLabel="#{programa.nombreProgramaUniversidadPostulacion}" itemValue="#{programa.idProgramaUniversidadPostulacion}">
+										</f:selectItems>
+										<p:ajax
+											update="pgUno pgUnoCondiciones pgUnoCondicionesImage mensajeSolicitudPostulacion" event="change"
+											listener="#{solicitudPostulacionBean.validarProgramaUniversidad}" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						
+						<p:panel id="pgUnoCondiciones" rendered="true">
+							<p:row>
+								<p:column  styleClass="titulos"></p:column>
+								<p:column styleClass="titulos" colspan="3">
+									<p:outputLabel id="costoPrograma" value="#{solicitudPostulacionBean.textoCostoProgramaUniversidad}"><br/></p:outputLabel>
+								</p:column>
+							</p:row>
+							<br/>
+							<p:row>
+								<p:column  styleClass="titulos"></p:column>
+							</p:row>
+							<p:panelGrid id="pgUnoCondicionesImage" rendered="#{solicitudPostulacionBean.mostrarCondicionesPago}">
+								<h:graphicImage library="img" name="pago_de_inscripcion_plataforma_de_postulacion.jpg"/>
+							</p:panelGrid>
+						</p:panel>
+						<div class="texto-saludate" />
+					</p:tab>
+
+					<p:tab id="datosPersonales" title="Datos Personales">
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<p:panelGrid id="pgDos">
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Cédula de identidad o Pasaporte (*)"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp1"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.rutPersonaSolicitudPostulacion}">
+										<p:ajax
+											update="inp1 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarRutPersonaSolicitudPostulacion}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column></p:column>
+								<p:column styleClass="label">
+									<p:outputLabel value="Nombre"></p:outputLabel>
+								</p:column>
+								<p:column styleClass="label">
+									<p:outputLabel value="Apellido Paterno"></p:outputLabel>
+								</p:column>
+								<p:column styleClass="label">
+									<p:outputLabel value="Apellido Materno"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Nombre del Postulante (*)"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp2"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nombrePersonaSolicitudPostulacion}">
+										<p:ajax
+											update="inp2 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarNombreSolicitudPostulacion}" />
+									</p:inputText>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp3"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoPaternoPersonaSolicitudPostulacion}">
+										<p:ajax
+											update="inp3 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarApellidoPaternoPersonaSolicitudPostulacion}" />
+									</p:inputText>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp4"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoMaternoPersonaSolicitudPostulacion}">
+										<p:ajax
+											update="inp4 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarApellidoMaternoPersonaSolicitudPostulacion}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Fecha de Nacimiento (*)"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp5"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fechaNacimiento}">
+										<p:ajax
+											update="inp5 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarFechaNacimiento}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Nacionalidad"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp6"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nacionalidad}">
+										<p:ajax
+											update="inp6 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarNacionalidad}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Fono de Contacto"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp7"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fonoContacto}">
+										<p:ajax
+											update="inp7 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarFonoContacto}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Fono móvil de Contacto"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp8"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.celularContacto}">
+										<p:ajax
+											update="inp8 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarCelularContacto}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Correo electrónico (*)"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp9"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.mailMember}">
+										<p:ajax
+											update="inp9 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarEmailPersonaSolicitudPostulacion}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Pais de Residencia"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp10"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.paisDomicilio}">
+										<p:ajax
+											update="inp10 selRegion panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarPaisDomicilio}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Región"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="selRegion"
+										disabled="#{solicitudPostulacionBean.disabledRegion}"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.idRegionDomicilio}">
+										<f:selectItem itemLabel="Seleccione Región" itemValue="" />
+										<f:selectItems
+											value="#{solicitudPostulacionBean.listaRegionesDTO}"
+											var="region" itemLabel="#{region.nombreRegion}"
+											itemValue="#{region.idRegion}" />
+										<p:ajax update="selRegion selComuna panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.seleccionarComunaXRegion}" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Comuna"></p:outputLabel>
+								</p:column>
+								<p:column colspan="2">
+									<p:selectOneMenu id="selComuna"
+										disabled="#{solicitudPostulacionBean.disabledComuna}"
+										style="width:192px;"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.idComunaDomicilio}">
+										<f:selectItem itemLabel="Seleccione Comuna" itemValue="" />
+										<f:selectItems
+											value="#{solicitudPostulacionBean.listaComunasDTO}"
+											var="comuna" itemLabel="#{comuna.nombreComuna}"
+											itemValue="#{comuna.idComuna}" />
+										<p:ajax update="selComuna panelConfirmacion"
+											listener="#{solicitudPostulacionBean.validarComunaDomicilio}" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Ciudad de Residencia"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp11"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.ciudadDomicilio}">
+										<p:ajax
+											update="inp11 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarCiudadDomicilio}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Domicilio"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp12"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.domicilio}">
+										<p:ajax
+											update="inp12 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarDomicilio}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<div class="texto-saludate" />
+					</p:tab>
+					<p:tab id="estudios" title="Formación Académica y Experiencia">
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<p:panelGrid id="pgTres">
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Título profesional o Grado académico (*)"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="3">
+									<p:inputText id="inp13" style="width:400"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.tituloProfesional}">
+										<p:ajax
+											update="inp13 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarTituloProfesional}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="¿Cuál fue la casa de estudios obtuvo su título profesional o grado académico? (*)"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:inputText id="inp14"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.entidadEducacional}">
+										<p:ajax
+											update="inp14 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarEntidadEducacional}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="¿Dónde se encontraba la casa de estudios?"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:inputText id="inp15"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.paisEntidadEducacional}">
+										<p:ajax
+											update="inp15 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarPaisEntidadEducacional}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							</p:panelGrid>
+							<p:panelGrid id="pgTresDos">
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Año de Titulación"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp16"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.anhoObtencionEntidadEducacional}">
+										<p:ajax
+											update="inp16 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarAnhoObtencionEntidadEducacional}" />
+									</p:inputText>
+								</p:column>
+								
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Ocupación Actual"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp17"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.ocupacionActual}">
+										<p:ajax
+											update="inp17 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarOcupacionActual}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+						
+						</p:panelGrid>
+						<div class="texto-saludate" />
+					</p:tab>
+					<p:tab id="otros" title="Otros">
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<p:panelGrid id="pgCuatro">
+							<p:row>
+								<p:column></p:column>
+								<p:column styleClass="label">
+									<p:outputLabel value="¿Cómo se enteró del programa?"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="4">
+									<p:inputText id="inp18" styleClass="otros-postulaciones"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.interesPrograma}">
+										<p:ajax
+											update="inp18 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarInteresPrograma}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column></p:column>
+								<p:column styleClass="label">
+									<p:outputLabel
+										value="¿Cuáles son sus fuentes de financiamiento?"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="4">
+									<p:inputText id="inp19" styleClass="otros-postulaciones"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fuenteFinancimiamiento}">
+										<p:ajax
+											update="inp19 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarFuenteFinanciamiento}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column></p:column>
+								<p:column styleClass="label" colspan="2">
+									<p:outputLabel
+										value="Ingrese comentarios u observaciones (si amerita)"></p:outputLabel>
+								</p:column>
+								<p:column></p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="4">
+									<p:inputTextarea id="inp20" styleClass="fundamente-solicitud-adm" maxlength="850"
+										value="#{solicitudPostulacionBean.solicitudPostulacionDTO.comentarios}">
+										<p:ajax
+											update="inp20 panelConfirmacion mensajeSolicitudPostulacion"
+											listener="#{solicitudPostulacionBean.validarComentarios}" />
+									</p:inputTextarea>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<div class="texto-saludate" />
+					</p:tab>
+					<p:tab id="documentos" title="Documentos Obligatorios">
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate">1) Currículum vitae.</div>
+						<div class="texto-saludate">2) Fotografía digital de 3x4 cms.</div>
+						<div class="texto-saludate">3) Títulos y grados académicos.</div>
+						<div class="texto-saludate">4) Comprobante de pago de arancel de inscripción.</div>
+						<div class="texto-saludate">5) Cédula de identidad o pasaporte digitalizado por ambos lados.</div>
+						<div class="texto-saludate" />
+						<div class="texto-saludate"> (*) Los documentos de la solicitud deben estar adjuntos dentro de una carpeta comprimida como un archivo rar o zip (15Mb)</div>
+						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<p:panelGrid id="pgCinco">
+							<p:row id="rowArchivo">
+								<p:column colspan="4" rendered="#{solicitudPostulacionBean.mostrarBotonArchivo}">
+									<p:fileUpload 
+										fileUploadListener="#{solicitudPostulacionBean.handleFileUpload}"
+										mode="advanced" label="Adjuntar Archivo" fileLimit="1" dragDropSupport="true"
+										oncomplete="javascript:window.location='#msg'" update="rowArchivo panelConfirmacion mensajeSolicitudPostulacion"
+										auto="true" sizeLimit="20000000" allowTypes="/(\.|\/)(rar|zip)$/" />
+								</p:column>
+								<p:column colspan="4" rendered="#{solicitudPostulacionBean.mostrarNombreArchivo}">
+									<p:outputLabel value=" archivo adjunto: #{solicitudPostulacionBean.solicitudPostulacionDTO.nombreArchivoSolicitud}"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<div class="texto-saludate" />
+						</p:panelGrid>
+						<div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate">favor de nombrar al archivo de tal forma que tenga el nombre o el rut del postulante 
+						Ej:"julio_pedreros_solicitud_postulacion_magister_gestion_cultural.rar" ó "20000000-5_solicitud_postulacion_magister_artes_mediales.zip", 
+						<br/>evite acentos y simbología gracias</div>
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+					</p:tab>
+					<p:tab id="confirmacion" title="Confirmacion de Postulación">
+						<p:panel id="panelConfirmacion" header="Confirmacion">
+							<p:panelGrid >
+							
+							<p:row>
+								<p:column><p:outputLabel value="Nombre del Postulante"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nombrePersonaSolicitudPostulacion} #{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoPaternoPersonaSolicitudPostulacion} #{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoMaternoPersonaSolicitudPostulacion}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Programa Universidad"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.programaPostulacionUniversidad}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="Cédula de identidad o Pasaporte"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.rutPersonaSolicitudPostulacion}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="Fecha de Nacimiento"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fechaNacimiento}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Nacionalidad"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nacionalidad}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Fono de Contacto"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fonoContacto}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Fono móvil de Contacto"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.celularContacto}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Email del Postulante"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.mailMember}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Pais de Domicilio"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.paisDomicilio}"></p:outputLabel></p:column>
+							</p:row>
+							<!-- desde aqui -->
+							<p:row>
+								<p:column><p:outputLabel value="Ciudad de Residencia"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.ciudadDomicilio}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Domicilio"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.domicilio}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Título profesional o Grado académico"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.tituloProfesional}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="¿Cuál fue la casa de estudios obtuvo su título profesional o grado académico?"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.entidadEducacional}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="¿Dónde se encontraba la casa de estudios?"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.paisEntidadEducacional}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Año de titulación"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.anhoObtencionEntidadEducacional}"></p:outputLabel></p:column>
+							</p:row>
+							<p:row>
+								<p:column><p:outputLabel value="Ocupación actual"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.ocupacionActual}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="¿Cómo se enteró del programa?"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.interesPrograma}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="¿Cuáles son sus fuentes de financiamiento?"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fuenteFinancimiamiento}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="comentarios u observaciones "></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.comentarios}"></p:outputLabel></p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column><p:outputLabel value="Archivo Adjunto"></p:outputLabel></p:column>
+								<p:column><p:outputLabel value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nombreArchivoSolicitud}"></p:outputLabel></p:column>
+							</p:row>
+							
+							</p:panelGrid>
+							<p:column
+								colspan="#{solicitudCertificadoBean.colspanBotonGuardar}">
+								<p:commandButton id="btn1" value="Postular"
+									action="#{solicitudPostulacionBean.almacenarSolicitudPostulacionPagoOffline}"
+									update="panelConfirmacion mensajeSolicitudPostulacion"
+									onclick="javascript:window.location='#msg'" />
+							</p:column>
+							<p:column colspan="#{solicitudCertificadoBean.colspanBotonPagar}"
+								rendered="#{solicitudCertificadoBean.mostrarBotonPagoOnline}">
+								<p:commandButton id="btn2" value="Pagar"
+									action="#{solicitudCertificadoBean.almacenarSolicitudCertificadoPagoOnline}"
+									update="panelConfirmacion mensajeSolicitudPostulacion"
+									onclick="javascript:window.location='#msg'" />
+							</p:column>
+							
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+				<div class="texto-saludate" /><div class="texto-saludate" />
+				<div class="texto-subintro">(*) campos obligatorios </div>
+				<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+				<div class="texto-subintro">La respuesta oficial será enviada a su correo electrónico</div>
+				<div class="texto-subintro">Para cualquier consulta, por favor dirigirse a la Secretaría de Postgrado del Programa.</div>
+				<div class="texto-saludate">Saluda atentamente,</div>
+				<div class="texto-saludate">Escuela de Postgrado</div>
+				<div class="texto-saludate">Facultad de Artes</div>
+				<div class="texto-saludate">Universidad de Chile</div>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>

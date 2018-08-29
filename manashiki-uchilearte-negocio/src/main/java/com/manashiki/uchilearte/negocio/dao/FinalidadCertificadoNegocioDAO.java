@@ -1,0 +1,16 @@
+package com.manashiki.uchilearte.negocio.dao;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.negocio.exception.NegocioImplException;
+import com.manashiki.uchilearte.negocio.model.FinalidadCertificadoModel;
+
+
+
+public interface FinalidadCertificadoNegocioDAO{
+	public FinalidadCertificadoModel crearFinalidadCertificadoModel(FinalidadCertificadoModel objFinalidadCertificadoModel);
+	public FinalidadCertificadoModel actualizarFinalidadCertificadoModel(FinalidadCertificadoModel objFinalidadCertificadoModel);
+	public FinalidadCertificadoModel buscarFinalidadCertificadoxIdModel(FinalidadCertificadoModel objFinalidadCertificadoModel) throws NegocioImplException;
+	public List<FinalidadCertificadoModel> listarFinalidadCertificadosModel();
+	
+}

@@ -1,0 +1,21 @@
+package com.manashiki.uchilearte.servicio;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.SolicitudCertificadoDTO;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+
+public interface ISolicitudCertificadoServicio{
+	
+	public SolicitudCertificadoDTO crearSolicitudCertificadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO);
+	public SolicitudCertificadoDTO actualizarSolicitudCertificadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO);
+	public SolicitudCertificadoDTO buscarSolicitudCertificadoxIdDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO) throws ServicioImplException;
+	public SolicitudCertificadoDTO buscarSolicitudCertificadoxRutPersonaSolicitudCertificadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO) throws ServicioImplException;
+//	public SolicitudCertificadoDTO buscarSolicitudCertificadoxNombrePersonaSolicitudCertificadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO) throws ServicioImplException;
+	public List<SolicitudCertificadoDTO> listarSolicitudCertificadosDTO();
+	public List<SolicitudCertificadoDTO> listarSolicitudCertificadoxApellidoPaternoPersonaSolicitudCertificadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO);
+	
+	public List<SolicitudCertificadoDTO> listarSolicitudCertificadoxEntreFechasDTO(SolicitudCertificadoDTO solicitudCertificadoDTOInicial, SolicitudCertificadoDTO solicitudCertificadoDTOFinal);
+	public List<SolicitudCertificadoDTO> listarSolicitudCertificadoxEstadoDTO(SolicitudCertificadoDTO objSolicitudCertificadoDTO);
+
+}

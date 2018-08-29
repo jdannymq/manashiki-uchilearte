@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+	
+		<script type="text/javascript">
+                    $(document).ready(function() {
+                        inicializarDatosSeguridad();
+                    });
+             </script>
+ </h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	
+	
+	<div id="msg" />	
+	<div
+	 class="banner">
+		<img src='http://s22.postimg.org/xkg3u0li9/banner_1.jpg' border='0'
+			alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+
+		<h:form id="formEmpresa">
+			<p:remoteCommand name="inicializarDatosSeguridad" actionListener="#{solicitudPostulacionBean.llamarRemoteCommandSeguridad()}" global="false" update="@form" />
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panel" header="Postulaciones 2017">
+
+				<div class="texto-intro">Bienvenido al sistema de Postulaciones en Línea de la Escuela de Postgrado de la Facultad de Artes de la Universidad de Chile </div>
+				
+				<div class="subtitulos">Antecedentes Personales</div>
+				<p:messages id="mensajeSolicitudPostulacion" showDetail="true" autoUpdate="true" closable="false" />
+				
+				<p:panelGrid id="pgInicio">
+					<p:row>
+						<p:column></p:column>
+						<p:column id="colInp1" styleClass="label">
+							<p:outputLabel value="Nombre"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp2" styleClass="label">
+							<p:outputLabel value="Apellido Paterno"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp3" styleClass="label">
+							<p:outputLabel value="Apellido Materno"></p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Nombre Completo"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp4">
+							<p:inputText id="inp4"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.nombrePersonaSolicitudPostulacion}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarNombreSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+						<p:column id="colInp5">
+							<p:inputText id="inp5"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoPaternoPersonaSolicitudPostulacion}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarApellidoPaternoPersonaSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+						<p:column id="colInp6">
+							<p:inputText id="inp6"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.apellidoMaternoPersonaSolicitudPostulacion}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarApellidoMaternoPersonaSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="RUT"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp7">
+							<p:inputText id="inp7"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.rutPersonaSolicitudPostulacion}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarRutPersonaSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Programa"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp8" styleClass="titulos" colspan="3">
+							<p:selectOneMenu id="selPrograma"
+								value="#{solicitudPostulacionBean.selPrograma}">
+								<f:selectItem itemLabel="Seleccione Programa" itemValue="" />
+								<f:selectItems
+									value="#{solicitudPostulacionBean.listaProgramaUniversidadDTO}"
+									var="programa"
+									itemLabel="#{programa.nombreProgramaUniversidad}"
+									itemValue="#{programa.idProgramaUniversidad}">
+								</f:selectItems>
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarProgramaUniversidadSolicitudPostulacion}" />
+
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Correo electrónico"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp9">
+							<p:inputText id="inp9"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.mailMember}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarEmailPersonaSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Año de Ingreso"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp10">
+							<p:inputText id="inp10"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.anhoIngreso}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarAnhoEgresoPersonaSolicitudPostulacion}" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column styleClass="titulos" colspan="1">
+							<p:outputLabel value="Fundamente su Solicitud"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp12">
+							<p:inputTextarea id="inp12" styleClass="fundamente-solicitud"
+								value="#{solicitudPostulacionBean.solicitudPostulacionDTO.fundamentacionSolicitud}">
+								<p:ajax
+									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion"
+									listener="#{solicitudPostulacionBean.validarFundamenteSolicitudPostulacion}" />
+							</p:inputTextarea>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="4">
+							<p:outputLabel style="font-size:12px !important;" value="También es posible incorporar documentos con el botón &ldquo;ADJUNTAR ARCHIVO&rdquo; que respalden la justificación de su solicitud, por ejemplo: 
+							certificados médicos, certificados de trabajo, cartas de apoyo, etc."></p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="4">
+						<p:fileUpload fileUploadListener="#{solicitudPostulacionBean.handleFileUpload}" mode="advanced" label="Adjuntar Archivo" fileLimit="1" dragDropSupport="true" oncomplete="javascript:window.location='#msg'"
+                    		 	update=":formEmpresa:mensajeSolicitudPostulacion" auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|JPG|gif|GIF|txt|TXT|png|doc|docx|rar|zip)$/" />
+							</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="1">
+							<p:commandButton id="btn1" value="Guardar"
+								actionListener="#{solicitudPostulacionBean.almacenarSolicitudPostulacion}"
+								update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion" 
+								onclick="javascript:window.location='#msg'" />
+						</p:column>
+						<p:column colspan="1">
+							<p:commandButton id="btnLimpiar" value="Limpiar"
+								action="#{solicitudPostulacionBean.limpiarFormularioSolicitudPostulacion}"
+								update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudPostulacion" 
+								onclick="javascript:window.location='#msg'"
+								/>
+						</p:column>
+						<p:column></p:column>
+					</p:row>
+
+				</p:panelGrid>
+				<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /> 
+				<div class="texto-subintro">La respuesta oficial será enviada a su correo electrónico</div>
+				
+				<div class="texto-subintro">Para cualquier consulta, por favor dirigirse a la Secretaría de Postgrado del Programa.</div>
+				<div class="texto-saludate">Saluda atentamente,</div>
+				<div class="texto-saludate">Escuela de Postgrado</div>
+				<div class="texto-saludate">Facultad de Artes</div>
+				<div class="texto-saludate">Universidad de Chile</div>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>

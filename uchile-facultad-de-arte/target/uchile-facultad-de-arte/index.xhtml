@@ -1,0 +1,198 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  -->
+<!--     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" -->
+<!-- 	xmlns:ui="http://java.sun.com/jsf/facelets" -->
+<!-- 	xmlns:h="http://java.sun.com/jsf/html" -->
+<!-- 	xmlns:f="http://java.sun.com/jsf/core" -->
+<!-- 	xmlns:p="http://primefaces.org/ui"> -->
+
+<!-- <h:head> -->
+<!-- 	<title>Facultad de Artes Universidad de Chile</title> -->
+<!-- 	<h:outputScript library="js" name="calendar_es.js" /> -->
+<!-- 	<h:outputScript library="js" name="validar_es.js" /> -->
+<!-- 	<script type="text/javascript"> -->
+//                     $(document).ready(function() {
+//                         inicializarDatosSeguridad();
+//                     });
+<!--              </script> -->
+<!-- </h:head> -->
+
+<!-- <h:body> -->
+<!-- 	<h:outputStylesheet library="css" name="estilos.css" /> -->
+<!-- 	<div id="msg" />	 -->
+	
+<!-- 	<div class="banner"> -->
+<!-- 		<img src='banner_1.jpg' border='0' -->
+<!-- 			alt="banner 1" /> -->
+<!-- 	</div> -->
+
+<!-- 	<div class="main-container"> -->
+
+<!-- 		<h:form id="formEmpresa"> -->
+<!-- 		<p:remoteCommand name="inicializarDatosSeguridad" actionListener="#{solicitudCertificadoBean.llamarRemoteCommandSeguridad()}" global="false" update="@form" /> -->
+<!-- 			<!-- Inicio Panel Principal --> -->
+<!-- 			<p:panel id="panel" header="Solicitud de Certificados"> -->
+
+<!-- 				<div class="subtitulos">Antecedentes Personales</div> -->
+<!-- 				<p:messages id="mensajeSolicitudCertificado" showDetail="true" autoUpdate="true" closable="false" /> -->
+<!-- 				<p:panelGrid id="pgInicio"> -->
+
+<!-- 					<p:row> -->
+<!-- 						<p:column></p:column> -->
+<!-- 						<p:column id="colInp1" styleClass="label"> -->
+<!-- 							<p:outputLabel value="Nombre"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp2" styleClass="label"> -->
+<!-- 							<p:outputLabel value="Apellido Paterno"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp3" styleClass="label"> -->
+<!-- 							<p:outputLabel value="Apellido Materno"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="Nombre Completo"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp4"> -->
+<!-- 							<p:inputText id="inp4" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.nombrePersonaSolicitudCertificado}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarNombreSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp5"> -->
+<!-- 							<p:inputText id="inp5" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.apellidoPaternoPersonaSolicitudCertificado}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarApellidoPaternoPersonaSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp6"> -->
+<!-- 							<p:inputText id="inp6" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.apellidoMaternoPersonaSolicitudCertificado}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarApellidoMaternoPersonaSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="RUT"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp7"> -->
+<!-- 							<p:inputText id="inp7" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.rutPersonaSolicitudCertificado}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarRutPersonaSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="Programa"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp8"> -->
+<!-- 							<p:selectOneMenu id="selPrograma" -->
+<!-- 								value="#{solicitudCertificadoBean.selPrograma}"> -->
+<!-- 								<f:selectItem itemLabel="Seleccione Programa" itemValue="" /> -->
+<!-- 								<f:selectItems -->
+<!-- 									styleClass="label" -->
+<!-- 									value="#{solicitudCertificadoBean.listaProgramaUniversidadDTO}" -->
+<!-- 									var="programa" -->
+<!-- 									itemLabel="#{programa.nombreProgramaUniversidad}" -->
+<!-- 									itemValue="#{programa.idProgramaUniversidad}" /> -->
+<!-- 								<p:ajax -->
+<!-- 									listener="#{solicitudCertificadoBean.validarProgramaUniversidadSolicitudCertificado}" /> -->
+<!-- 							</p:selectOneMenu> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="Correo electrónico"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp9"> -->
+<!-- 							<p:inputText id="inp9" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.mailMember}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarEmailPersonaSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="año de Ingreso"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp10"> -->
+<!-- 							<p:inputText id="inp10" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.anhoIngreso}"> -->
+<!-- 								<p:ajax -->
+<!-- 									update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 									listener="#{solicitudCertificadoBean.validarAnhoEgresoPersonaSolicitudCertificado}" /> -->
+<!-- 							</p:inputText> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="Tipo de Certificado"></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp11" colspan="2" > -->
+<!-- 							<p:selectOneRadio id="rad1" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.idTipoCertificado}" -->
+<!-- 								layout="grid" columns="1"> -->
+<!-- 								<f:selectItems -->
+<!-- 									value="#{solicitudCertificadoBean.listaTipoCertificadoDTO}" -->
+<!-- 									var="tipoCertificado" -->
+<!-- 									itemLabel="#{tipoCertificado.nombreTipoCertificado}" -->
+<!-- 									itemValue="#{tipoCertificado.idTipoCertificado}" /> -->
+<!-- 							</p:selectOneRadio> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column styleClass="titulos"> -->
+<!-- 							<p:outputLabel value="Fines del certificado "></p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp12" colspan="2"> -->
+<!-- 							<p:selectOneRadio id="rad2" -->
+<!-- 								value="#{solicitudCertificadoBean.solicitudCertificadoDTO.idFinalidadCertificado}" -->
+<!-- 								layout="grid" columns="1"> -->
+<!-- 								<f:selectItems -->
+<!-- 									value="#{solicitudCertificadoBean.listaFinalidadCertificadoDTO}" -->
+<!-- 									var="finalidadCertificado" -->
+<!-- 									itemLabel="#{finalidadCertificado.nombreFinalidadCertificado}" -->
+<!-- 									itemValue="#{finalidadCertificado.idFinalidadCertificado}" /> -->
+<!-- 							</p:selectOneRadio> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+<!-- 					<p:row> -->
+<!-- 						<p:column colspan="2"> -->
+<!-- 							<p:commandButton id="btn1" value="Guardar" -->
+<!-- 								action="#{solicitudCertificadoBean.almacenarSolicitudCertificado}" -->
+<!-- 								update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado" -->
+<!-- 								onclick="javascript:window.location='#msg'" /> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column colspan="2"> -->
+<!-- 							<p:commandButton id="btnLimpiar" value="Limpiar" -->
+<!-- 								action="#{solicitudCertificadoBean.limpiarFormularioSolicitudCertificado}" -->
+<!-- 								update=":formEmpresa:pgInicio :formEmpresa:mensajeSolicitudCertificado"  -->
+<!-- 								onclick="javascript:window.location='#msg'" /> -->
+<!-- 						</p:column> -->
+<!-- 					</p:row> -->
+
+<!-- 				</p:panelGrid> -->
+
+<!-- 			</p:panel> -->
+
+<!-- 			<p:spacer width="100%" height="30" /> -->
+
+<!-- 		</h:form> -->
+<!-- 	</div> -->
+<!-- </h:body> -->
+<!-- </html> -->

@@ -1,0 +1,17 @@
+package com.manashiki.uchilearte.logica.dao;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.logica.entidad.ProgramaUniversidadPostulacionEntity;
+import com.manashiki.uchilearte.logica.exception.PersistenceImplException;
+
+
+
+public interface ProgramaUniversidadPostulacionDAO{
+	public ProgramaUniversidadPostulacionEntity crearProgramaUniversidadPostulacionEntity(ProgramaUniversidadPostulacionEntity objProgramaUniversidadPostulacionEntity);
+	public ProgramaUniversidadPostulacionEntity actualizarProgramaUniversidadPostulacionEntity(ProgramaUniversidadPostulacionEntity objProgramaUniversidadPostulacionEntity);
+	public ProgramaUniversidadPostulacionEntity buscarProgramaUniversidadPostulacionxIdEntity(ProgramaUniversidadPostulacionEntity objProgramaUniversidadPostulacionEntity) throws PersistenceImplException;
+	public List<ProgramaUniversidadPostulacionEntity> listarProgramaUniversidadPostulacionEntity();
+	public List<ProgramaUniversidadPostulacionEntity> listarProgramaUniversidadPostulacionOrdenPrioridad();
+	
+}

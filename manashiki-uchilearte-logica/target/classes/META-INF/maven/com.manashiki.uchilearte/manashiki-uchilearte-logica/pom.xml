@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+ <parent>
+    <groupId>com.manashiki.uchilearte</groupId>
+    <artifactId>manashiki-uchilearte</artifactId>
+    <version>1.0.0.a</version>
+  </parent>
+  <artifactId>manashiki-uchilearte-logica</artifactId>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<camel.version>2.10.1</camel.version>
+		<java.version>1.6</java.version>
+		<slf4j.version>1.6.6</slf4j.version>
+		<spring.version>4.0.7.RELEASE</spring.version>
+		<junit.version>4.11</junit.version>
+		<eclipselink.version>2.4.2</eclipselink.version>
+		<springdata.version>1.7.1.RELEASE</springdata.version>
+		<hibernate.version>4.1.9.Final</hibernate.version>
+		<mysql.version>5.1.31</mysql.version>
+		<aplicacion.version>1.0.0</aplicacion.version>
+	</properties>
+
+  	<!-- Repositorio EclipseLink JPA -->
+	<repositories>
+		<repository>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+			<id>eclipselink</id>
+			<layout>default</layout>
+			<name>Repository for library EclipseLink (JPA 2.0)</name>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${springdata.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>org.eclipse.persistence.jpa</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+			
+	</dependencies>
+</project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServicioWSImplService WSDL service -->
+
+  <!--  <service name="ServicioWSImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://server.ws.project.a cepta.com"/>
+      <parameter name="wsdlServiceElement" value="ServicioWSImplService"/>
+      <parameter name="schemaQualified" value="http://server.ws.project.a cepta.com"/>
+      <parameter name="wsdlServicePort" value="ServicioWSImpl"/>
+      <parameter name="className" value="com.a cepta.project.ws.server.ServicioWSImpl"/>
+      <parameter name="wsdlPortType" value="ServicioWSImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://server.ws.project.a cepta.com" xmlns:retNS="http://server.ws.project.a cepta.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="almacenaDoc" qname="operNS:almacenaDoc" returnQName="retNS:almacenaDocReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:rucEmisor" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:tipo" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:folio" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:rucReceptor" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:montoTotal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://server.ws.project.a cepta.com" xmlns:retNS="http://server.ws.project.a cepta.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="muestraDoc" qname="operNS:muestraDoc" returnQName="retNS:muestraDocReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:rucReceptor" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:inicio" type="tns:string"/>
+        <parameter xmlns:pns="http://server.ws.project.a cepta.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:filas" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="almacenaDoc muestraDoc"/>
+
+  </service>-->
+</deployment>

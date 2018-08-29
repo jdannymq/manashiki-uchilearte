@@ -1,0 +1,7 @@
+carpeta
+nautilus /home/jcornejo/workspace/WorkspaceUchile/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/
+
+log catalina
+tail -f /home/jcornejo/workspace/WorkspaceUchile/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/logs/uchile-facultad-de-arte/certificados
+
+cd /home/jcornejo/workspace/WorkspaceUchile/manashiki-uchilearte/

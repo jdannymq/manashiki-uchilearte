@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+	<script type="text/javascript">
+                    $(document).ready(function() {
+                    	inicializarDatosSeguridad();
+                    });
+    </script>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+
+	<div class="banner">
+		<img src='banner_1.jpg' border='0' alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+		<h:form id="formSolicitudCertificado">
+			<p:remoteCommand name="inicializarDatosSeguridad"
+				actionListener="#{administracionSolicitudCertificadoBean.llamarRemoteCommandSeguridad()}" global="false" update="@form" />
+
+			<p:growl life="3000" id="mensajeSolicitudCertificado"
+				showDetail="true" />
+
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panelInicio" toggleable="true" toggleSpeed="500"
+				closeSpeed="500" header="Registro de Solicitud de Certificado">
+
+				<p:panelGrid id="pgInicio" cellpadding="0" cellspacing="0"
+					width="300" border="0" style="">
+
+					<p:row>
+						<p:column>
+							<p:calendar id="calendarEntrada_sol_aca" pages="2" locale="es"
+								value="#{administracionSolicitudCertificadoBean.fechaInicial}"
+								readOnlyInput="true"
+								onmouseover="menuContextDisabled();"
+								onmouseout="menuContextEnabled();"
+								mindate="#{administracionSolicitudCertificadoBean.limiteInferiorFechaInicial}"
+								maxdate="#{administracionSolicitudCertificadoBean.limiteSuperiorFechaInicial}"
+								pattern="dd/MM/yyyy" 
+								onkeypress="javascript:return soloTabulador(event);"
+								onkeydown="var keycode;if(window.event)keycode=window.event.keyCode;if(window.event.keyCode = 8)return false;">
+								<p:ajax event="dateSelect" global="false"
+									update="calendarEntrada_sol_aca calendarSalida_sol_aca"
+									listener="#{administracionSolicitudCertificadoBean.cambiarFechaFinal}" />
+							</p:calendar>
+						</p:column>
+
+						<p:column>
+							<p:calendar id="calendarSalida_sol_aca" pages="2" locale="es"
+								value="#{administracionSolicitudCertificadoBean.fechaFinal}"
+								readOnlyInput="true"
+								onmouseover="menuContextDisabled();"
+								onmouseout="menuContextEnabled();"
+								mindate="#{administracionSolicitudCertificadoBean.limiteInferiorFechaFinal}"
+								maxdate="#{administracionSolicitudCertificadoBean.limiteSuperiorFechaFinal}"
+								pattern="dd/MM/yyyy" 
+								onkeypress="javascript:return soloTabulador(event);"
+								onkeydown="var keycode;if(window.event)keycode=window.event.keyCode;if(window.event.keyCode = 8)return false;">
+							</p:calendar>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton id="btn1" value="Buscar Solicitudes de Certificados"
+								action="#{administracionSolicitudCertificadoBean.buscarSolicitudCertificado}"
+								update=":formSolicitudCertificado:pgInicio :formSolicitudCertificado:solicitudCertificadoTable" />
+						</p:column>
+						<p:column colspan="2">
+							<p:commandButton id="btnLimpiar" value="Limpiar Formulario"
+								action="#{administracionSolicitudCertificadoBean.limpiarFormularioSolicitudCertificado}"
+								update=":formSolicitudCertificado:pgInicio :formSolicitudCertificado:solicitudCertificadoTable :formSolicitudCertificado:mensajeSolicitudCertificado" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:dataTable style="width:910px;" id="solicitudCertificadoTable"
+					var="detalleSolicitudCertificado"
+					value="#{administracionSolicitudCertificadoBean.listaSolicitudCertificadoDTO}"
+					rows="20" rowIndexVar="rowIndex" paginator="true"
+					emptyMessage="No existen registros asociados">
+					<p:column headerText="Indice" width="10" style="text-align:left;"> #{rowIndex+1}</p:column>
+					
+					<p:column width="100" style="text-align:left;" headerText="Nombre">
+						<h:outputText
+							value="#{detalleSolicitudCertificado.nombrePersonaSolicitudCertificado}" />
+					</p:column>
+					<p:column width="100" style="text-align:left;"
+						headerText="Apellido Paterno">
+						<h:outputText
+							value="#{detalleSolicitudCertificado.apellidoPaternoPersonaSolicitudCertificado}" />
+					</p:column>
+					<p:column width="70" style="text-align:left;" headerText="RUT">
+						<h:outputText
+							value="#{detalleSolicitudCertificado.rutPersonaSolicitudCertificado}" />
+					</p:column>
+					<p:column width="80" style="text-align:left;"
+						headerText="Fecha del Registro">
+						<h:outputText
+							value="#{detalleSolicitudCertificado.sfechaSolicitud}" />
+					</p:column>
+					<p:column width="100" style="text-align:center;">
+						<p:commandButton id="btnVerSolicitudCertificado"
+							action="#{administracionSolicitudCertificadoBean.mostrarDialog}"
+							onsuccess="PF('widgetDesactivaDialog').show();"
+							value="Ver Solicitud"
+							update=":formSolicitudCertificado:estadoDlgPg">
+							<f:setPropertyActionListener value="#{detalleSolicitudCertificado}"
+								target="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<p:dialog id="desactivaDialog" widgetVar="widgetDesactivaDialog" modal="true" closable="true" width="650">
+				<p:panelGrid id="estadoDlgPg">
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Nombre Completo"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp4">
+							<p:outputLabel id="inp4"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.nombrePersonaSolicitudCertificado} #{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.apellidoPaternoPersonaSolicitudCertificado}
+								#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.apellidoMaternoPersonaSolicitudCertificado}">
+							</p:outputLabel>
+						</p:column>
+<!-- 						<p:column id="colInp5"> -->
+<!-- 							<p:outputLabel id="inp5" -->
+<!-- 								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.apellidoPaternoPersonaSolicitudCertificado}"> -->
+<!-- 							</p:outputLabel> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column id="colInp6"> -->
+<!-- 							<p:outputLabel id="inp6" -->
+<!-- 								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.apellidoMaternoPersonaSolicitudCertificado}"> -->
+<!-- 							</p:outputLabel> -->
+<!-- 						</p:column> -->
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="RUT"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp7">
+							<p:outputLabel id="inp7"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.rutPersonaSolicitudCertificado}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Programa"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp8">
+							<p:outputLabel id="selPrograma"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.programaUniversidad}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Correo electrónico"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp9">
+							<p:outputLabel id="inp9"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.mailMember}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Año de ingreso"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp10">
+								<p:outputLabel id="inp10" value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.anhoIngreso}">
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Tipo de Certificado"></p:outputLabel>
+						</p:column>
+						<p:column id="colInp11" colspan="2" >
+							<p:outputLabel id="rad1"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.tipoCertificado}" >
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="titulos">
+							<p:outputLabel value="Fines del certificado "></p:outputLabel>
+						</p:column>
+						<p:column id="colInp12" colspan="2">
+							<p:outputLabel id="rad2"
+								value="#{administracionSolicitudCertificadoBean.verSolicitudCertificadoDTO.finalidadCertificado}" >
+							</p:outputLabel>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column width="75">
+								<p:commandButton value="Cerrar"
+									onclick="PF('widgetDesactivaDialog').hide();" />
+							</p:column>
+						<p:column width="50" />
+					</p:row>
+
+				</p:panelGrid>
+			</p:dialog>
+			
+			<p:spacer width="100%" height="30" />
+		</h:form>
+	</div>
+
+
+</h:body>
+</html>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	  <persistence-unit name="manashiki-uchilearte-principal" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>DBDataSource</jta-data-source>
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.AplicacionEmpresaEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.AplicacionEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.EmpresaEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.EmpresaUsuarioAplicacionEmpresaEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.EmpresaUsuarioEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.UsuarioEntity</class> -->
+		
+		<class>com.manashiki.uchilearte.logica.entidad.ArchivoSolicitudEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.ComunaEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.FinalidadCertificadoEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.LogReservaEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.NegocioSolicitudEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.ProgramaUniversidadEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.ProgramaUniversidadPostulacionEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.RegionEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.SolicitudAcademicaEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.SolicitudCertificadoEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.SolicitudPostulacionEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.TipoCertificadoEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.TipoSolicitudEntity</class>
+		
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.TipoCompraEntity</class> -->
+<!-- 		<class>com.manashiki.uchilearte.logica.entidad.NegocioSolicitudEntity</class> -->
+<!-- 		Plataforma Cursos de Programas 2018-->
+		<class>com.manashiki.uchilearte.logica.entidad.SemestreTemporadaEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.ProgramaActivoSemestreEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.AsignaturaProgramaActivoSemestreEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.AlumnoEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.AlumnoProgramaActivoSemestreEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.AsignaturaTomadaProgramaActivoSemestreEntity</class>
+		<class>com.manashiki.uchilearte.logica.entidad.ConfirmacionAsignaturaTomadaEntity</class>
+		
+		
+	</persistence-unit>
+	<persistence-unit name="manashiki-uchilearte" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="false"/>
+		</properties>
+	</persistence-unit>	
+</persistence>

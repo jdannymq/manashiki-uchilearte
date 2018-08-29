@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.manashiki.uchilearte</groupId>
+	<artifactId>manashiki-uchilearte</artifactId>
+	<version>1.0.0.a</version>
+	<packaging>pom</packaging>
+
+	<name>manashiki-uchilearte</name>
+	<url>http://localhost</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<camel.version>2.10.1</camel.version>
+		<java.version>1.6</java.version>
+		<slf4j.version>1.6.6</slf4j.version>
+		<spring.version>4.0.7.RELEASE</spring.version>
+		<junit.version>4.11</junit.version>
+		<eclipselink.version>2.4.2</eclipselink.version>
+		<springdata.version>1.7.1.RELEASE</springdata.version>
+		<hibernate.version>4.1.9.Final</hibernate.version>
+		<mysql.version>5.1.31</mysql.version>
+		<aplicacion.version>1.0.0</aplicacion.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vijnana</groupId>
+			<artifactId>vijnana.utilidades.component</artifactId>
+			<version>2.0.0.v</version>
+		</dependency>
+	</dependencies>
+	<modules>
+		<module>manashiki-uchilearte-logica</module>
+		<module>manashiki-uchilearte-negocio</module>
+		<module>manashiki-uchilearte-servdto</module>
+		<module>manashiki-uchilearte-servicio</module>
+		<module>manashiki-uchilearte-wsrest</module>
+<!-- 		<module>manashiki-uchilearte-webmail</module> -->
+<!-- 		<module>manashiki-uchilearte-webmailfront</module> -->
+<!-- 		<module>manashiki-wsrest-client</module> -->
+		<module>uchile-facultad-de-arte-utilidades</module>
+		<module>uchile-facultad-de-arte</module>
+		<module>uchile-facultad-de-arte-solicitudes</module>
+		<module>uchile-facultad-de-arte-postulaciones</module>
+		<module>uchile-facultad-de-arte-new</module>
+		
+<!-- 		<module>uchile-facultad-de-arte-mail</module> -->
+	</modules>
+
+</project>

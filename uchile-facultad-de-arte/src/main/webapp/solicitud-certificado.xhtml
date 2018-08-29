@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			inicializarDatosSeguridad();
+		});
+	</script>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<div id="msg" />
+
+	<div class="banner">
+		<img src='banner_1.jpg' border='0' alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+
+		<h:form id="formSolCertificado">
+			<p:remoteCommand name="inicializarDatosSeguridad"
+				actionListener="#{solicitudCertificadoBean.llamarRemoteCommandSeguridad()}"
+				global="false" update="@form" />
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panel" header="Solicitud de Certificados">
+
+				<div class="texto-intro">Bienvenido al sistema de Solicitud de
+					Certificados en Línea de la Escuela de Postgrado de la Facultad de
+					Artes de la Universidad de Chile.</div>
+
+				<!-- 				<div class="subtitulos">Antecedentes Personales</div> -->
+
+				<p:messages id="mensajeSolicitudCertificado" showDetail="true"
+					autoUpdate="true" closable="false" />
+				<p:wizard
+					flowListener="#{solicitudCertificadoBean.validarFlujoProceso}"
+					backLabel="Atras" nextLabel="Siguiente">
+					<p:tab id="programa" title="Antecedentes Personales">
+						<div class="texto-subintro"></div>
+						<div class="texto-subintro"></div>
+						<p:panelGrid id="pgInicio">
+							<p:row>
+								<p:column></p:column>
+								<p:column id="colInp1" styleClass="label">
+									<p:outputLabel value="Nombre"></p:outputLabel>
+								</p:column>
+								<p:column id="colInp2" styleClass="label">
+									<p:outputLabel value="Apellido Paterno"></p:outputLabel>
+								</p:column>
+								<p:column id="colInp3" styleClass="label">
+									<p:outputLabel value="Apellido Materno"></p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Nombre Completo"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp1"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.nombrePersonaSolicitudCertificado}">
+										<p:ajax update="inp1 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarNombreSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp2"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.apellidoPaternoPersonaSolicitudCertificado}">
+										<p:ajax update="inp2 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarApellidoPaternoPersonaSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp3"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.apellidoMaternoPersonaSolicitudCertificado}">
+										<p:ajax update="inp3 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarApellidoMaternoPersonaSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="RUT"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp4"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.rutPersonaSolicitudCertificado}">
+										<p:ajax update="inp4 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarRutPersonaSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Correo electrónico"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp5"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.mailMember}">
+										<p:ajax update="inp5 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarEmailPersonaSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Programa"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="programaUniversidad"
+										value="#{solicitudCertificadoBean.selecPrograma}">
+										<f:selectItem itemLabel="Seleccione Programa" itemValue="" />
+										<f:selectItems styleClass="label"
+											value="#{solicitudCertificadoBean.listaProgramaUniversidadDTO}"
+											var="programa"
+											itemLabel="#{programa.nombreProgramaUniversidad}"
+											itemValue="#{programa.idProgramaUniversidad}" />
+										<p:ajax update="pgInicio mensajeSolicitudCertificado"
+											event="change"
+											listener="#{solicitudCertificadoBean.validarProgramaUniversidadSolicitudCertificado}" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Año de Ingreso"></p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:inputText id="inp6"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.anhoIngreso}">
+										<p:ajax update="inp6 mensajeSolicitudCertificado"
+											listener="#{solicitudCertificadoBean.validarAnhoEgresoPersonaSolicitudCertificado}" />
+									</p:inputText>
+								</p:column>
+							</p:row>
+							<p:row>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Tipo de Certificado"></p:outputLabel>
+								</p:column>
+								<p:column colspan="2">
+									<p:selectOneRadio id="radTipoCertificado"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.idTipoCertificado}"
+										layout="grid" columns="1">
+										<f:selectItems
+											value="#{solicitudCertificadoBean.listaTipoCertificado}"
+											var="tipoCertificado"
+											itemLabel="#{tipoCertificado.nombreTipoCertificado}"
+											itemValue="#{tipoCertificado.idTipoCertificado}" />
+										<p:ajax
+											update="radTipoCertificado mensajeSolicitudCertificado"
+											event="change"
+											listener="#{solicitudCertificadoBean.validarTipoCertificado}" />
+									</p:selectOneRadio>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="titulos">
+									<p:outputLabel value="Fines del certificado "></p:outputLabel>
+								</p:column>
+								<p:column colspan="2">
+									<p:selectOneRadio id="radFinalidadCertificado"
+										value="#{solicitudCertificadoBean.solicitudCertificadoDTO.idFinalidadCertificado}"
+										layout="grid" columns="1">
+										<f:selectItems
+											value="#{solicitudCertificadoBean.listaFinalidadCertificado}"
+											var="finalidadCertificado"
+											itemLabel="#{finalidadCertificado.nombreFinalidadCertificado}"
+											itemValue="#{finalidadCertificado.idFinalidadCertificado}" />
+										<p:ajax
+											update="radTipoCertificado mensajeSolicitudCertificado"
+											event="change"
+											listener="#{solicitudCertificadoBean.validarFinalidadCertificado}" />
+									</p:selectOneRadio>
+								</p:column>
+							</p:row>
+							<p:row>
+
+								<p:column colspan="2">
+									<p:commandButton id="btnLimpiar" value="Limpiar"
+										action="#{solicitudCertificadoBean.limpiarFormularioSolicitudCertificado}"
+										update="pgInicio mensajeSolicitudCertificado"
+										onclick="javascript:window.location='#msg'" />
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+					</p:tab>
+					<p:tab id="confirmacion" title="Confirmacion de Solicitud">
+						<div class="texto-subintro"></div>
+						<div class="texto-subintro"></div>
+						<p:panel id="panelConfirmacion">
+							<p:panelGrid>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Nombre del Solicitante"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.nombrePersonaSolicitudCertificado} #{solicitudAcademicaBean.solicitudCertificadoDTO.apellidoPaternoPersonaSolicitudCertificado} #{solicitudAcademicaBean.solicitudCertificadoDTO.apellidoMaternoPersonaSolicitudCertificado}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="RUT"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.rutPersonaSolicitudCertificado}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Programa"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.programaUniversidad}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Correo electrónico"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.mailMember}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Año de Ingreso"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.anhoIngreso}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Tipo de Certificado"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.tipoCertificado}"></p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Fines del Certificado"></p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel
+											value="#{solicitudCertificadoBean.solicitudCertificadoDTO.finalidadCertificado}"></p:outputLabel>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<p:column
+								colspan="#{solicitudCertificadoBean.colspanBotonGuardar}">
+								<p:commandButton id="btn1" value="Enviar"
+									action="#{solicitudCertificadoBean.almacenarSolicitudCertificadoPagoOffline}"
+									update="pgInicio mensajeSolicitudCertificado"
+									onclick="javascript:window.location='#msg'" />
+							</p:column>
+							<p:column colspan="#{solicitudCertificadoBean.colspanBotonPagar}"
+								rendered="#{solicitudCertificadoBean.mostrarBotonPagoOnline}">
+								<p:commandButton id="btn2" value="Pagar"
+									action="#{solicitudCertificadoBean.almacenarSolicitudCertificadoPagoOnline}"
+									update="pgInicio mensajeSolicitudCertificado"
+									onclick="javascript:window.location='#msg'" />
+							</p:column>
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+
+				<div class="texto-saludate" />
+				<div class="texto-saludate" />
+				<div class="texto-saludate" />
+				<div class="texto-saludate" />
+				<div class="texto-saludate" />
+				<div class="texto-subintro">La respuesta oficial será enviada
+					a su correo electrónico</div>
+				<div class="texto-subintro">Consideraciones importantes:</div>
+				<div class="texto-subintro">Para obtener los certificados que
+					tienen costo, se debe cancelar el IMPUESTO UNIVERSITARIO. Este
+					impuesto se paga en forma de "ESTAMPILLAS" las cuales se compran en
+					Servicios Centrales de la Universidad de Chile, calle Diagonal
+					Paraguay 265, 1er piso (Centro de Atención de Alumnos). El horario
+					de atención es de Lunes a Jueves de 09:00 a 13:00 hrs. Las
+					ESTAMPILLAS debes portarlas al momento de retirar tu certificado en
+					nuestra Escuela de Postgrado. El tiempo de entrega de tu
+					certificado es de 05 días hábiles.</div>
+
+				<div class="texto-subintro">Para cualquier consulta, por favor
+					dirigirse a la Secretaría de Postgrado del Programa.</div>
+				<div class="texto-saludate">Saluda atentamente</div>
+				<div class="texto-saludate">Escuela de Postgrado</div>
+				<div class="texto-saludate">Facultad de Artes</div>
+				<div class="texto-saludate">Universidad de Chile</div>
+
+			</p:panel>
+
+			<p:spacer width="100%" height="30" />
+
+		</h:form>
+	</div>
+</h:body>
+</html>

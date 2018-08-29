@@ -1,0 +1,15 @@
+package com.manashiki.uchilearte.servicio;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.AsignaturaProgramaActivoSemestreDTO;
+import com.manashiki.uchilearte.servicio.exception.ServicioImplException;
+
+
+public interface IAsignaturaProgramaActivoSemestreServicio{
+	
+	public AsignaturaProgramaActivoSemestreDTO crearAsignaturaProgramaActivoSemestreDTO(AsignaturaProgramaActivoSemestreDTO objAsignaturaProgramaActivoSemestreDTO );
+	public AsignaturaProgramaActivoSemestreDTO actualizarAsignaturaProgramaActivoSemestreDTO(AsignaturaProgramaActivoSemestreDTO objAsignaturaProgramaActivoSemestreDTO );
+ 	public AsignaturaProgramaActivoSemestreDTO buscarAsignaturaProgramaActivoSemestrexIdDTO(AsignaturaProgramaActivoSemestreDTO objAsignaturaProgramaActivoSemestreDTO ) throws ServicioImplException;
+ 	public List<AsignaturaProgramaActivoSemestreDTO> listarAsignaturaProgramaActivoSemestreDTO();
+}

@@ -1,0 +1,16 @@
+package com.manashiki.uchilearte.logica.dao;
+
+import java.util.List;
+
+import com.manashiki.uchilearte.logica.entidad.FinalidadCertificadoEntity;
+import com.manashiki.uchilearte.logica.exception.PersistenceImplException;
+
+
+
+public interface FinalidadCertificadoDAO{
+	public FinalidadCertificadoEntity crearFinalidadCertificadoEntity(FinalidadCertificadoEntity objFinalidadCertificadoEntity);
+	public FinalidadCertificadoEntity actualizarFinalidadCertificadoEntity(FinalidadCertificadoEntity objFinalidadCertificadoEntity);
+	public FinalidadCertificadoEntity buscarFinalidadCertificadoxIdEntity(FinalidadCertificadoEntity objFinalidadCertificadoEntity) throws PersistenceImplException;
+	public List<FinalidadCertificadoEntity> listarFinalidadCertificadoesEntity();
+	
+}

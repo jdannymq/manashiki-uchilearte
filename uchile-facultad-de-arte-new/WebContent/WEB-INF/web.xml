@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>uchile-facultad-de-arte-new</display-name>
+  <servlet>
+    <servlet-name>SolicitudRestService</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>SolicitudCertificado</servlet-name>
+    <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.SolicitudCertificadoController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>ServletGodName</servlet-name>
+    <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.ServletGod</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SolicitudRestService</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SolicitudCertificado</servlet-name>
+    <url-pattern>/solicitud/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletGodName</servlet-name>
+    <url-pattern>/god/*</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>main/view/solicitud-certificado.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

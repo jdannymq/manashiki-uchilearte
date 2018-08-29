@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Facultad de Artes Universidad de Chile</title>
+	<h:outputScript library="js" name="calendar_es.js" />
+	<h:outputScript library="js" name="validar_es.js" />
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<div id="msg" />	
+	
+	<div
+	 class="banner">
+		<img src='http://s22.postimg.org/xkg3u0li9/banner_1.jpg' border='0'
+			alt="banner 1" />
+	</div>
+
+	<div class="main-container">
+
+		<h:form id="formEmpresa">
+
+			<!-- Inicio Panel Principal -->
+			<p:panel id="panel" header="Su solicitud ha sido registrada">
+
+				
+				<div class="texto-intro">IMPORTANTE: La respuesta oficial a tu
+					solicitud será enviada a tu Correo Electrónico por la Escuela de
+					Postgrado de la Facultad de Artes. La Escuela de
+					Postgrado es la única fuente de información oficial respecto de la
+					tramitación de estas solicitudes.</div>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>
+

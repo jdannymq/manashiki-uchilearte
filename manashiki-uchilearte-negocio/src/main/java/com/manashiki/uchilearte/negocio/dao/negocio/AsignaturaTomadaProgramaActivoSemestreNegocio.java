@@ -1,0 +1,81 @@
+package com.manashiki.uchilearte.negocio.dao.negocio;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.manashiki.uchilearte.logica.dao.FactoryPersistenciaDAO;
+import com.manashiki.uchilearte.logica.entidad.AsignaturaTomadaProgramaActivoSemestreEntity;
+import com.manashiki.uchilearte.logica.exception.PersistenceImplException;
+import com.manashiki.uchilearte.negocio.dao.AsignaturaTomadaProgramaActivoSemestreNegocioDAO;
+import com.manashiki.uchilearte.negocio.exception.NegocioImplException;
+import com.manashiki.uchilearte.negocio.mapper.AsignaturaTomadaProgramaActivoSemestreModelMapper;
+import com.manashiki.uchilearte.negocio.model.AsignaturaTomadaProgramaActivoSemestreModel;
+
+@Component
+public class AsignaturaTomadaProgramaActivoSemestreNegocio implements AsignaturaTomadaProgramaActivoSemestreNegocioDAO{
+	
+	private static final Logger objLog = LoggerFactory.getLogger(AsignaturaTomadaProgramaActivoSemestreNegocio.class);
+	
+	@Autowired
+	FactoryPersistenciaDAO factoryPersistenciaDAO;
+	
+	public AsignaturaTomadaProgramaActivoSemestreModel crearAsignaturaTomadaProgramaActivoSemestreModel(AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomadaModel) {
+		objLog.info("INI - crearAsignaturaTomadaProgramaActivoSemestreModel");
+		AsignaturaTomadaProgramaActivoSemestreEntity programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreEntity();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreEntity(programaActivoSemestreAsignaturaTomadaModel);
+		
+		
+		programaActivoSemestreAsignaturaTomada = factoryPersistenciaDAO.getAsignaturaTomadaProgramaActivoSemestreDAO().crearAsignaturaTomadaProgramaActivoSemestreEntity(programaActivoSemestreAsignaturaTomada);
+		
+		programaActivoSemestreAsignaturaTomadaModel = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreEntityToAsignaturaTomadaProgramaActivoSemestreModel(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - crearAsignaturaTomadaProgramaActivoSemestreModel "+programaActivoSemestreAsignaturaTomadaModel.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return programaActivoSemestreAsignaturaTomadaModel;
+	}
+
+	public AsignaturaTomadaProgramaActivoSemestreModel actualizarAsignaturaTomadaProgramaActivoSemestreModel(AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomadaModel) {
+		objLog.info("INI - actualizarAsignaturaTomadaProgramaActivoSemestreModel "+programaActivoSemestreAsignaturaTomadaModel.getIdAsignaturaTomadaProgramaActivoSemestre());
+		AsignaturaTomadaProgramaActivoSemestreEntity programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreEntity();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreEntity(programaActivoSemestreAsignaturaTomadaModel);
+		
+		programaActivoSemestreAsignaturaTomada = factoryPersistenciaDAO.getAsignaturaTomadaProgramaActivoSemestreDAO().actualizarAsignaturaTomadaProgramaActivoSemestreEntity(programaActivoSemestreAsignaturaTomada);
+		
+		programaActivoSemestreAsignaturaTomadaModel = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreEntityToAsignaturaTomadaProgramaActivoSemestreModel(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - actualizarAsignaturaTomadaProgramaActivoSemestreModel "+programaActivoSemestreAsignaturaTomadaModel.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return programaActivoSemestreAsignaturaTomadaModel;
+	}
+
+	public AsignaturaTomadaProgramaActivoSemestreModel buscarAsignaturaTomadaProgramaActivoSemestrexIdModel(AsignaturaTomadaProgramaActivoSemestreModel programaActivoSemestreAsignaturaTomadaModel) throws NegocioImplException {
+		objLog.info("INI - buscarAsignaturaTomadaProgramaActivoSemestrexIdModel "+programaActivoSemestreAsignaturaTomadaModel.getIdAsignaturaTomadaProgramaActivoSemestre());
+		AsignaturaTomadaProgramaActivoSemestreEntity programaActivoSemestreAsignaturaTomada = new AsignaturaTomadaProgramaActivoSemestreEntity();
+		programaActivoSemestreAsignaturaTomada = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreModelToAsignaturaTomadaProgramaActivoSemestreEntity(programaActivoSemestreAsignaturaTomadaModel);
+		
+		try {
+			programaActivoSemestreAsignaturaTomada=factoryPersistenciaDAO.getAsignaturaTomadaProgramaActivoSemestreDAO().buscarAsignaturaTomadaProgramaActivoSemestrexIdEntity(programaActivoSemestreAsignaturaTomada);
+		} catch (PersistenceImplException e) {
+			objLog.error("error en implementacion de Negocio:: ");
+			throw new NegocioImplException(e);
+		}
+		programaActivoSemestreAsignaturaTomadaModel = AsignaturaTomadaProgramaActivoSemestreModelMapper.AsignaturaTomadaProgramaActivoSemestreEntityToAsignaturaTomadaProgramaActivoSemestreModel(programaActivoSemestreAsignaturaTomada);
+		objLog.info("FIN - buscarAsignaturaTomadaProgramaActivoSemestrexIdModel "+programaActivoSemestreAsignaturaTomadaModel.getIdAsignaturaTomadaProgramaActivoSemestre());
+		return programaActivoSemestreAsignaturaTomadaModel;
+	}
+	
+	public List<AsignaturaTomadaProgramaActivoSemestreModel> listarAsignaturaTomadaProgramaActivoSemestreModel() {
+		objLog.info("INI - listarAsignaturaTomadaProgramaActivoSemestreesModel");
+		List<AsignaturaTomadaProgramaActivoSemestreModel> listaAsignaturaTomadaProgramaActivoSemestreModel=new ArrayList<AsignaturaTomadaProgramaActivoSemestreModel>();
+		List<AsignaturaTomadaProgramaActivoSemestreEntity> listaAsignaturaTomadaProgramaActivoSemestrees = new ArrayList<AsignaturaTomadaProgramaActivoSemestreEntity>();
+		
+		listaAsignaturaTomadaProgramaActivoSemestrees=factoryPersistenciaDAO.getAsignaturaTomadaProgramaActivoSemestreDAO().listarAsignaturaTomadaProgramaActivoSemestreEntity();
+		
+		listaAsignaturaTomadaProgramaActivoSemestreModel = AsignaturaTomadaProgramaActivoSemestreModelMapper.ListAsignaturaTomadaProgramaActivoSemestreEntityToListAsignaturaTomadaProgramaActivoSemestreModel(listaAsignaturaTomadaProgramaActivoSemestrees);
+		
+		objLog.info("FIN - listarAsignaturaTomadaProgramaActivoSemestreesModel "+listaAsignaturaTomadaProgramaActivoSemestreModel.size());
+		return listaAsignaturaTomadaProgramaActivoSemestreModel;
+	}
+	
+}

@@ -42,15 +42,20 @@
 					Postulaciones en Línea de la Escuela de Postgrado de la Facultad de
 					Artes de la Universidad de Chile</div>
 
-				<p:messages id="mensajeSolicitudPostulacion" showDetail="true"
-					autoUpdate="true" closable="false" />
+				<p:messages id="mensajeSolicitudPostulacion" showDetail="true" autoUpdate="true" closable="false" />
 
-				<p:wizard
-					flowListener="#{solicitudPostulacionBean.validarFlujoProceso}"
-					backLabel="Atras" nextLabel="Siguiente">
+				<p:wizard flowListener="#{solicitudPostulacionBean.validarFlujoProceso}" backLabel="Atras" nextLabel="Siguiente">
+					
+					
 					<p:tab id="programa" title="Programa">
-						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
-						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
+						<div class="texto-saludate" />
 						
 						<p:panelGrid id="pgUno">
 							<p:row>
@@ -90,7 +95,6 @@
 						</p:panel>
 						<div class="texto-saludate" />
 					</p:tab>
-
 					<p:tab id="datosPersonales" title="Datos Personales">
 						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
 						<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
@@ -578,7 +582,8 @@
 						</p:panel>
 					</p:tab>
 				</p:wizard>
-				<div class="texto-saludate" /><div class="texto-saludate" />
+				<div class="texto-saludate" />
+				<div class="texto-saludate" />
 				<div class="texto-subintro">(*) campos obligatorios </div>
 				<div class="texto-saludate" /><div class="texto-saludate" /><div class="texto-saludate" />
 				<div class="texto-subintro">La respuesta oficial será enviada a su correo electrónico</div>

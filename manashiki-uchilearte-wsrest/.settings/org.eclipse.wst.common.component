@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="manashiki-uchilearte-wsrest">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="manashiki-uchilearte-servicio-1.0.0.a.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/manashiki-uchilearte-servicio/manashiki-uchilearte-servicio">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="manashiki-uchilearte-negocio-1.0.0.a.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/manashiki-uchilearte-negocio/manashiki-uchilearte-negocio">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="manashiki-uchilearte-logica-1.0.0.a.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/manashiki-uchilearte-logica/manashiki-uchilearte-logica">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="manashiki-uchilearte-servdto-1.0.0.a.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/manashiki-uchilearte-servdto/manashiki-uchilearte-servdto">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/manashiki-uchilearte-wsrest/target/classes"/>
+        <property name="context-root" value="manashiki-uchilearte-wsrest"/>
+    </wb-module>
+</project-modules>

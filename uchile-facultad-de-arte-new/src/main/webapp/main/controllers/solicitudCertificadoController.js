@@ -9,6 +9,7 @@ solicitudCertificadoApp.controller('SolicitudCertificadoController', [ '$scope',
 	/*variables globales*/
 	$scope.val = null;
 	$scope.mensaje;
+	$scope.error;
 	$scope.selectedPrograma = 'Seleccionar Programa';
 	$scope.jsonListaProgramaCtrl; 
 	$scope.jsonTipoCertificadoCtrl; 
@@ -63,6 +64,7 @@ solicitudCertificadoApp.controller('SolicitudCertificadoController', [ '$scope',
 		$scope.jsonListaProgramaCtrl = $window.jsonListaPrograma;
 		$scope.jsonTipoCertificadoCtrl = $window.jsonListaTipoCertificado;
 		$scope.jsonListaFinalidadCertificadoCtrl = $window.jsonListaFinalidadCertificado;
+		$scope.error = $window.jsonMensajeError;
 		console.log('=================================================================================================================');
 		
 		if($scope.jsonListaProgramaCtrl !== undefined){
@@ -71,6 +73,14 @@ solicitudCertificadoApp.controller('SolicitudCertificadoController', [ '$scope',
 		}else{
 			console.log('no hay poruebas');
 		}
+		
+		if($scope.error !== undefined && $scope.error.mensajeError !== ""){
+    		$scope.mensaje.html("<span><strong>*</strong> " + $scope.error.mensajeError + ".</span>");
+    		$scope.mensaje.attr('style','display: block;')
+		}
+		
+		
+		
 	};
 	
 	

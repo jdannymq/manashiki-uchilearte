@@ -284,3 +284,12 @@ display:none;
 	padding-top: 17%;
 }
 
+.bannerTop{
+	border-top: 10px solid #eee;
+}
+
+.spanObligatorio{
+	color: #c10101;
+}
+
+

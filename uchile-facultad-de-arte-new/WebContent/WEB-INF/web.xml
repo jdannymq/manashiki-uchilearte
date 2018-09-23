@@ -12,11 +12,15 @@
     <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.SolicitudCertificadoController</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
-  
+  <servlet>
+    <servlet-name>SolicitudPostulaciones</servlet-name>
+    <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.PostulacionController</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>  
   <servlet>
     <servlet-name>ServletGodName</servlet-name>
     <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.ServletGod</servlet-class>
-    <load-on-startup>3</load-on-startup>
+    <load-on-startup>4</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>SolicitudRestService</servlet-name>
@@ -26,6 +30,11 @@
   <servlet-mapping>
     <servlet-name>SolicitudCertificado</servlet-name>
     <url-pattern>/solicitud/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SolicitudPostulaciones</servlet-name>
+    <url-pattern>/postulacion/*</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

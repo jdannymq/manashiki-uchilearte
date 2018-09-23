@@ -1,5 +1,5 @@
 com/manashiki/uchilearte/wrapper/MapperWrapper.class
 com/manashiki/uchilearte/wsrest/PagoController.class
-com/manashiki/uchilearte/wsrest/UchileArteController.class
 com/manashiki/uchilearte/wsrest/IntranetUchileArteController.class
+com/manashiki/uchilearte/wsrest/UchileArteController.class
 com/manashiki/uchilearte/wrapper/WrapperUchileArte.class

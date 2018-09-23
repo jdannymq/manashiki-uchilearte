@@ -8,30 +8,37 @@ solicitudCertificadoApp.controller('SolicitudCertificadoExitoController', [ '$sc
 
 	/*variables globales*/
 	$scope.val = null;
-
+	$scope.pagina = null;
 	
 	$scope.leerSolicitudCertificadoExito = function() {
 				
 		console.log('=============================================== Inicializando Data Certificados ===========================================');
-		$scope.obtenerComponentesFormulario()
+		$scope.obtenerComponentesFormulario();
 		console.log('=================================================================================================================');
 	};
 	
 	$scope.obtenerComponentesFormulario = function(){
 		console.log('============================================ Obtener Componentes Formulario ========================================');
 		$scope.botonSalir = $('button[id=salir]');
+		$scope.pagina = '/solicitud/';
 		console.log('=================================================================================================================');
 	};
 
 	$scope.cerrarVentana = function(){
 		console.log('============================================ Obtener Componentes Formulario ========================================');
-		
-		var url = $window.origin +'/uchile-facultad-de-arte-new/solicitud/'
+		var strCadena = $window.location.pathname;
+		var array = $window.location.pathname.split("/");
+		var url = $window.origin +  '/'+ array[1] + $scope.pagina;
 		$window.location.href = url;
 		
 		console.log('=================================================================================================================');
 	};
 	
 	
+	$scope.leerSolicitudCertificadoError = function() {
+		console.log('=============================================== Inicializando Data Certificados ===========================================');
+		$scope.obtenerComponentesFormulario();
+		console.log('=================================================================================================================');
+	};
 	
 }]);

@@ -1,7 +1,7 @@
 com/manashiki/uchilearte/web/utilidades/properties/PropertiesServerAplicacion.class
 com/manashiki/uchilearte/web/utilidades/properties/PropertiesLocalAplicacion.class
-com/manashiki/uchilearte/web/utilidades/cliente/ClienteRest.class
 com/manashiki/uchilearte/web/utilidades/funcionalidades/AccionesObjetosEstaticos.class
+com/manashiki/uchilearte/web/utilidades/cliente/ClienteRest.class
 com/manashiki/uchilearte/web/utilidades/properties/UchileProperties.class
 com/manashiki/uchilearte/web/utilidades/direccionamiento/Navigation.class
 com/manashiki/uchilearte/web/utilidades/cliente/ClienteRestUtilidades.class

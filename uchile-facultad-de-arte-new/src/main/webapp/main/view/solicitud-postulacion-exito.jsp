@@ -68,7 +68,7 @@
 					</div>		  
 			  </div>
 			</div>
-			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentana()">Finalizar</button>
+			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentanaPostulacion()">Finalizar</button>
 		</div>
 	</body>
 </html>

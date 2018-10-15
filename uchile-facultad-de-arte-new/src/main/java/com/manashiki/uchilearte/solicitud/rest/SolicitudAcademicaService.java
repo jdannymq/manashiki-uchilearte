@@ -27,25 +27,26 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.google.gson.Gson;
 import com.manashiki.uchilearte.servdto.dto.entities.formulario.ArchivoSolicitudDTO;
-import com.manashiki.uchilearte.servdto.dto.entities.formulario.ProgramaUniversidadPostulacionDTO;
-import com.manashiki.uchilearte.servdto.dto.entities.formulario.SolicitudPostulacionDTO;
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.ProgramaUniversidadDTO;
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.SolicitudAcademicaDTO;
+import com.manashiki.uchilearte.servdto.dto.entities.formulario.TipoSolicitudDTO;
 import com.manashiki.uchilearte.solicitud.dto.ResponseTo;
-import com.manashiki.uchilearte.solicitud.web.controller.impl.PostulacionImpl;
-import com.manashiki.uchilearte.solicitud.web.model.SolicitudPostulacionModel;
+import com.manashiki.uchilearte.solicitud.web.controller.impl.AcademicaImpl;
+import com.manashiki.uchilearte.solicitud.web.model.SolicitudAcademicaModel;
 
 import vijnana.respuesta.wrapper.response.Respuesta;
 import vijnana.utilidades.component.utilidades.JsonMappeo;
 
 
-@Path("/SolicitudPostulacionService")
-public class SolicitudPostulacionService {
+@Path("/SolicitudAcademicaService")
+public class SolicitudAcademicaService {
 	
 	private static final Logger logger = Logger.getLogger(SolicitudPostulacionService.class);
-	PostulacionImpl postulacionImpl = new PostulacionImpl();
+	AcademicaImpl academicaImpl = new AcademicaImpl();
 	Gson g = new Gson();	
 	
 	@POST
-    @Path("/almacenarSolicitudPostulacionPagoOffline")
+    @Path("/almacenarSolicitudAcademicaPagoOffline")
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
     public String obtenerListadoCertificados(
@@ -54,93 +55,85 @@ public class SolicitudPostulacionService {
 		logger.info("Inicio validación de postulación.");
 		logger.info(jsonParametrosBusquedaRequest);
 		Gson g = new Gson();
-		SolicitudPostulacionModel dataSolicitud = new SolicitudPostulacionModel();
-		PostulacionImpl postulacionImpl = new PostulacionImpl();
+		SolicitudAcademicaModel dataSolicitud = new SolicitudAcademicaModel();
 		ResponseTo data = new ResponseTo();
 		String jsonResultado = "";
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			
-			postulacionImpl.iniciliazarFormulario();
-			dataSolicitud = objectMapper.readValue(jsonParametrosBusquedaRequest, SolicitudPostulacionModel.class);
+			academicaImpl.iniciliazarFormulario();
+			dataSolicitud = objectMapper.readValue(jsonParametrosBusquedaRequest, SolicitudAcademicaModel.class);
 			System.out.println("data :: " + g.toJson(dataSolicitud));
 
-			if(postulacionImpl.getSolicitudPostulacionDTO() == null){
-				postulacionImpl.setSolicitudPostulacionDTO(new SolicitudPostulacionDTO());
+			if(academicaImpl.getSolicitudAcademicaDTO() == null){
+				academicaImpl.setSolicitudAcademicaDTO(new SolicitudAcademicaDTO());
 			}
-			List<ProgramaUniversidadPostulacionDTO> lista = new ArrayList<ProgramaUniversidadPostulacionDTO>(0);
-			lista.add(dataSolicitud.getPrograma());
-			postulacionImpl.setListaProgramaUniversidadPostulacionDTO(lista);
-			postulacionImpl.setArchivoSolicitudPostulacionDTO(dataSolicitud.getArchivo());
 			
-			postulacionImpl.getSolicitudPostulacionDTO().setIdProgramaUniversidadPostulacion(dataSolicitud.getIdProgramaUniversidadPostulacion());
-			postulacionImpl.getSolicitudPostulacionDTO().setProgramaPostulacionUniversidad(dataSolicitud.getProgramaPostulacionUniversidad());
-			postulacionImpl.getSolicitudPostulacionDTO().setCostoProgramaUniversidad(dataSolicitud.getCostoProgramaUniversidad());
-			postulacionImpl.getSolicitudPostulacionDTO().setTituloVersionSemestral(dataSolicitud.getTituloVersionSemestral());
+			academicaImpl.getSolicitudAcademicaDTO().setNombrePersonaSolicitudAcademica(dataSolicitud.getNombrePersonaSolicitudAcademica());
+			academicaImpl.getSolicitudAcademicaDTO().setApellidoPaternoPersonaSolicitudAcademica(dataSolicitud.getApellidoPaternoPersonaSolicitudAcademica());
+			academicaImpl.getSolicitudAcademicaDTO().setApellidoMaternoPersonaSolicitudAcademica(dataSolicitud.getApellidoMaternoPersonaSolicitudAcademica());
+			academicaImpl.getSolicitudAcademicaDTO().setRutPersonaSolicitudAcademica(dataSolicitud.getRutPersonaSolicitudAcademica());
+			academicaImpl.getSolicitudAcademicaDTO().setIdProgramaUniversidad(dataSolicitud.getIdProgramaUniversidad());
+			academicaImpl.getSolicitudAcademicaDTO().setProgramaUniversidad(dataSolicitud.getProgramaUniversidad());
+			academicaImpl.getSolicitudAcademicaDTO().setMailMember(dataSolicitud.getMailMember());
+			academicaImpl.getSolicitudAcademicaDTO().setAnhoIngreso(dataSolicitud.getAnhoIngreso());
+			academicaImpl.getSolicitudAcademicaDTO().setIdTipoSolicitud(dataSolicitud.getIdTipoSolicitud());
+			academicaImpl.getSolicitudAcademicaDTO().setTipoSolicitud(dataSolicitud.getTipoSolicitud());
+			academicaImpl.getSolicitudAcademicaDTO().setFundamentacionSolicitud(dataSolicitud.getFundamentacionSolicitud());
+			academicaImpl.getSolicitudAcademicaDTO().setArchivoAdjunto(dataSolicitud.isArchivoAdjunto());
+			academicaImpl.getSolicitudAcademicaDTO().setNombreArchivo(dataSolicitud.getNombreArchivo());
+			academicaImpl.getSolicitudAcademicaDTO().setIdArchivoSolicitud(dataSolicitud.getIdArchivoSolicitud());
+	
+			academicaImpl.setArchivoSolicitudDTO(dataSolicitud.getArchivo());
+			academicaImpl.setProgramaUniversidadDTO(dataSolicitud.getProgramaUniversidadDTO());
+			academicaImpl.setTipoSolicitudDTO(dataSolicitud.getTipoSolicitudDTO());
 			
-			postulacionImpl.getSolicitudPostulacionDTO().setRutPersonaSolicitudPostulacion(dataSolicitud.getRutPersonaSolicitudPostulacion());
-			postulacionImpl.getSolicitudPostulacionDTO().setNombrePersonaSolicitudPostulacion(dataSolicitud.getNombrePersonaSolicitudPostulacion());
-			postulacionImpl.getSolicitudPostulacionDTO().setApellidoPaternoPersonaSolicitudPostulacion(dataSolicitud.getApellidoPaternoPersonaSolicitudPostulacion());
-			postulacionImpl.getSolicitudPostulacionDTO().setApellidoMaternoPersonaSolicitudPostulacion(dataSolicitud.getApellidoMaternoPersonaSolicitudPostulacion());
-			postulacionImpl.getSolicitudPostulacionDTO().setFechaNacimiento(dataSolicitud.getFechaNacimiento());
-			postulacionImpl.getSolicitudPostulacionDTO().setNacionalidad(dataSolicitud.getNacionalidad());
-			postulacionImpl.getSolicitudPostulacionDTO().setFonoContacto(dataSolicitud.getFonoContacto());
-			postulacionImpl.getSolicitudPostulacionDTO().setCelularContacto(dataSolicitud.getCelularContacto());
-			postulacionImpl.getSolicitudPostulacionDTO().setMailMember(dataSolicitud.getMailMember());
-			postulacionImpl.getSolicitudPostulacionDTO().setDomicilio(dataSolicitud.getDomicilio());
-			postulacionImpl.getSolicitudPostulacionDTO().setPaisDomicilio(dataSolicitud.getPaisDomicilio());
-			postulacionImpl.getSolicitudPostulacionDTO().setIdRegionDomicilio(dataSolicitud.getIdRegionDomicilio());
-			postulacionImpl.getSolicitudPostulacionDTO().setNombreRegion(dataSolicitud.getNombreRegion());
-			postulacionImpl.getSolicitudPostulacionDTO().setIdComunaDomicilio(dataSolicitud.getIdComunaDomicilio());
-			postulacionImpl.getSolicitudPostulacionDTO().setNombreComuna(dataSolicitud.getNombreComuna());
-			postulacionImpl.getSolicitudPostulacionDTO().setCiudadDomicilio(dataSolicitud.getCiudadDomicilio());
-			
-			postulacionImpl.getSolicitudPostulacionDTO().setTituloProfesional(dataSolicitud.getTituloProfesional());
-			postulacionImpl.getSolicitudPostulacionDTO().setEntidadEducacional(dataSolicitud.getEntidadEducacional());
-			postulacionImpl.getSolicitudPostulacionDTO().setPaisEntidadEducacional(dataSolicitud.getPaisDomicilio());
-			postulacionImpl.getSolicitudPostulacionDTO().setAnhoObtencionEntidadEducacional(dataSolicitud.getAnhoObtencionEntidadEducacional());
-			postulacionImpl.getSolicitudPostulacionDTO().setOcupacionActual(dataSolicitud.getOcupacionActual());
-			
-			postulacionImpl.getSolicitudPostulacionDTO().setInteresPrograma(dataSolicitud.getInteresPrograma());
-			postulacionImpl.getSolicitudPostulacionDTO().setFuenteFinancimiamiento(dataSolicitud.getFuenteFinancimiamiento());
-			postulacionImpl.getSolicitudPostulacionDTO().setComentarios(dataSolicitud.getComentarios());
-			
-			postulacionImpl.getSolicitudPostulacionDTO().setIdArchivoSolicitud(dataSolicitud.getIdArchivoSolicitud());
-			postulacionImpl.getSolicitudPostulacionDTO().setNombreArchivoSolicitud(dataSolicitud.getNombreArchivoSolicitud());
 			/*hay que validar antes de enivar la información*/
-			
-			
+//			
+//			data.setEstado("EXITO");
+//			data.setMensaje("Fue envianda la solicitd de certificado");
+//			data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academica-exito.jsp");
+//			jsonResultado = JsonMappeo.convertirObjectToJson(data);	
 			
 
 		} catch (Exception e) {
 			logger.error("Exception en el seteo de los datos para la solicitud de certificado: "+e.getMessage(), e);
 			data.setEstado("ERROR");
 			data.setMensaje("Exception en el seteo de los datos para la solicitud de certificado");
-			data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-postualcion-error.jsp");
+			data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academia-error.jsp");
 			jsonResultado = JsonMappeo.convertirObjectToJson(data);
 			return jsonResultado;
 		}		
 		
 		logger.info("################################## Siguiente Paso Almacenar dato ###################################################");
 		try{
-			boolean valido = postulacionImpl.almacenarSolicitudPostulacionPagoOffline();
+			boolean valido = academicaImpl.validarLlenadoFormulario(academicaImpl.getSolicitudAcademicaDTO());
 			if(valido){
-				data.setEstado("EXITO");
-				data.setMensaje("Fue envianda la solicitd de certificado");
-				data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-postulacion-exito.jsp");
-				jsonResultado = JsonMappeo.convertirObjectToJson(data);				
+				boolean guardado = academicaImpl.almacenarSolicitudAcademicaPagoOffline();
+				if(guardado){
+					data.setEstado("EXITO");
+					data.setMensaje("Fue envianda la solicitd de academica");
+					data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academica-exito.jsp");
+					jsonResultado = JsonMappeo.convertirObjectToJson(data);		
+				}else{
+					logger.error("Error en el metodo almacenarSolicitudAcademicaPagoOffline");
+					data.setEstado("ERROR");
+					data.setMensaje("Exception en el seteo de los datos para la solicitud de academica");
+					data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academia-error.jsp");
+					jsonResultado = JsonMappeo.convertirObjectToJson(data);
+				}
 			}else{
-				logger.error("Error en el metodo almacenarSolicitudPostulacionPagoOffline");
+				logger.error("Error en el metodo almacenarSolicitudAcademicaPagoOffline");
 				data.setEstado("ERROR");
-				data.setMensaje("Exception en el seteo de los datos para la solicitud de postulacion");
-				data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-postulacion-error.jsp");
+				data.setMensaje("Exception en el seteo de los datos para la solicitud de academica");
+				data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academia-error.jsp");
 				jsonResultado = JsonMappeo.convertirObjectToJson(data);
 			}
 		}catch(Exception e){
-			logger.error("Exception No fue posible enviar la solicitud del postulacion. "+e.getMessage(), e);
+			logger.error("Exception No fue posible enviar la solicitud del academica. "+e.getMessage(), e);
 			data.setEstado("ERROR");
-			data.setMensaje("Exception en el seteo de los datos para la solicitud de postulacion");
-			data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-postulacion-error.jsp");
+			data.setMensaje("Exception en el seteo de los datos para la solicitud de academica");
+			data.setUrl("uchile-facultad-de-arte-new/main/view/solicitud-academia-error.jsp");
 			jsonResultado = JsonMappeo.convertirObjectToJson(data);
 			return jsonResultado;			
 		}
@@ -156,10 +149,8 @@ public class SolicitudPostulacionService {
 		String archivo = "{'archivo':'No tiene Archivo'}";
 		try {
 				logger.info("iniciando la subida de archivo en la pagina de postulaciones.");
-				postulacionImpl.llamarRemoteCommandSeguridad();
+				academicaImpl.llamarRemoteCommandSeguridad();
 				String nombreArchivoFinal = ""; 
-			    //StringBuilder sb = new StringBuilder(); 
-			    //InputStream reader = servletRequest.getInputStream(); 
 			    String primerosdatos = "";
 			    String segundodatos = "";
 			    
@@ -218,17 +209,14 @@ public class SolicitudPostulacionService {
 							           is = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
 							           contenido = sb.toString().getBytes("UTF-8");
 							           logger.info("se ha transformado a un archivo .-.!!"+ contenido );
-							           //System.out.println("Archivo" +  is.toString());
 						       } catch (UnsupportedEncodingException e) {
 						            e.printStackTrace();
 						       }
-				           postulacionImpl.handleFileUpload(nombreArchivoFinal,is, f, contenido);
+						       academicaImpl.handleFileUpload(nombreArchivoFinal,is, f, contenido);
 				          
 							 
 						   salida.close();
 						   readerNew.close();
-						   //System.out.println("Se realizo la conversion con exito");
-						   //System.out.println(salida);
 					  }catch(IOException e){
 						  logger.error("Se produjo el error : "+e.toString());
 					  }
@@ -236,7 +224,7 @@ public class SolicitudPostulacionService {
 			     reader.close(); 
 			    } 
 			  
-			   ArchivoSolicitudDTO archivoGuardado = (postulacionImpl.getArchivoSolicitudPostulacionDTO()!= null) ? postulacionImpl.getArchivoSolicitudPostulacionDTO(): null; 
+			   ArchivoSolicitudDTO archivoGuardado = (academicaImpl.getArchivoSolicitudDTO()!= null) ? academicaImpl.getArchivoSolicitudDTO(): null; 
 			   if(archivoGuardado != null){
 				   archivo = g.toJson(archivoGuardado);
 				   Respuesta res = new Respuesta();

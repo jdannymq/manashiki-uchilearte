@@ -18,9 +18,14 @@
     <load-on-startup>3</load-on-startup>
   </servlet>  
   <servlet>
+    <servlet-name>SolicitudAcademica</servlet-name>
+    <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.SolicitudAcademicaController</servlet-class>
+    <load-on-startup>4</load-on-startup>
+  </servlet>    
+  <servlet>
     <servlet-name>ServletGodName</servlet-name>
     <servlet-class>com.manashiki.uchilearte.solicitud.web.controller.ServletGod</servlet-class>
-    <load-on-startup>4</load-on-startup>
+    <load-on-startup>5</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>SolicitudRestService</servlet-name>
@@ -37,6 +42,11 @@
     <url-pattern>/postulacion/*</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>SolicitudAcademica</servlet-name>
+    <url-pattern>/academica/*</url-pattern>
+  </servlet-mapping>
+    
   <servlet-mapping>
     <servlet-name>ServletGodName</servlet-name>
     <url-pattern>/god/*</url-pattern>

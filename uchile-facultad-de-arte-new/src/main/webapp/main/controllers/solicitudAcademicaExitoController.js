@@ -1,8 +1,8 @@
-var solicitudCertificadoApp = angular.module('solicitudCertificadoExito',[]);
+var solicitudCertificadoApp = angular.module('solicitudAcademicaExito',[]);
 
 
 
-solicitudCertificadoApp.controller('SolicitudCertificadoExitoController', [ '$scope', '$http', '$window', '$sce',
+solicitudCertificadoApp.controller('SolicitudAcademicaExitoController', [ '$scope', '$http', '$window', '$sce',
                                                         function($scope, $http, $window, $sce) {
 	
 
@@ -10,7 +10,7 @@ solicitudCertificadoApp.controller('SolicitudCertificadoExitoController', [ '$sc
 	$scope.val = null;
 	$scope.pagina = null;
 	
-	$scope.leerSolicitudCertificadoExito = function() {
+	$scope.leerSolicitudAcademicaExito = function() {
 				
 		console.log('=============================================== Inicializando Data Certificados ===========================================');
 		$scope.obtenerComponentesFormulario();
@@ -20,11 +20,11 @@ solicitudCertificadoApp.controller('SolicitudCertificadoExitoController', [ '$sc
 	$scope.obtenerComponentesFormulario = function(){
 		console.log('============================================ Obtener Componentes Formulario ========================================');
 		$scope.botonSalir = $('button[id=salir]');
-		$scope.pagina = '/solicitud/';
+		$scope.pagina = '/academica/';
 		console.log('=================================================================================================================');
 	};
 
-	$scope.cerrarVentana = function(){
+	$scope.cerrarVentanaAcademica = function(){
 		console.log('============================================ Obtener Componentes Formulario ========================================');
 		var strCadena = $window.location.pathname;
 		var array = $window.location.pathname.split("/");
@@ -32,9 +32,10 @@ solicitudCertificadoApp.controller('SolicitudCertificadoExitoController', [ '$sc
 		$window.location.href = url;
 		
 		console.log('=================================================================================================================');
-	}
-
-	$scope.leerSolicitudCertificadoError = function() {
+	};
+	
+	
+	$scope.leerSolicitudAcademicaError = function() {
 		console.log('=============================================== Inicializando Data Certificados ===========================================');
 		$scope.obtenerComponentesFormulario();
 		console.log('=================================================================================================================');

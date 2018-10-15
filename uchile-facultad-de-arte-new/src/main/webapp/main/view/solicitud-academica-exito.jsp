@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<html ng-app="solicitudPostulacionExito" lang="en">
+<html ng-app="solicitudAcademicaExito" lang="en">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,7 +31,7 @@
 		<script type="text/javascript" src="/uchile-facultad-de-arte-new/lib/ui-bootstrap-tpls-1.1.2.min.js"></script>
 		
 		<!-- jQuery Global Controller-->		
-		<script type="text/javascript" src="/uchile-facultad-de-arte-new/main/controllers/solicitudPostulacionExitoController.js?version=1.0.1"></script>
+		<script type="text/javascript" src="/uchile-facultad-de-arte-new/main/controllers/solicitudAcademicaExitoController.js?version=1.0.1"></script>
 
 		<!-- JS generales de Desarrollo-->
 		<script src="/uchile-facultad-de-arte-new/assets/js/swiper.min.js"></script>
@@ -49,26 +49,26 @@
 		<script src="/uchile-facultad-de-arte-new/assets/js/ux/utilidades.js"></script>
 		<script src="/uchile-facultad-de-arte-new/assets/js/ux/listing/main.js"></script>
 		<script src="/uchile-facultad-de-arte-new/assets/js/validar_es.js"></script>
+		
+
 </head>
-	<body class="body" ng-controller="SolicitudPostulacionExitoController" ng-init="leerSolicitudPostulacionError();">
+	<body class="body" ng-controller="SolicitudAcademicaExitoController" ng-init="leerSolicitudAcademicaExito(); data = {};">
 		<div class="banner">
 			<img src='/uchile-facultad-de-arte-new/administracion-solicitudes/banner_1.jpg' border='0' alt="banner 1" />
-		</div>	
-
+		</div>		
 		<div class="main-container footer">
 			<div class="panel panel-default">
-			  <div class="panel-heading">Error al enviar la solicitud de Postulación</div>
+			  <div class="panel-heading">Su solicitud ha sido registrada</div>
 			  <div class="panel-body">
-				<div class="alert alert-danger" role="alert">
-				  <p>Estimado Alumno:</p>
-				  <p class="mb-0">Le informamos que nuestros sistemas internos están en manrención. Disculpen las molestias.</p>
-				  <p class="mb-0">Se recomienda intentar mas tarde.</p>
-				  <br />
-				  <p class="mb-0">Saludos Coordiales.</p>
-				</div>  
+					<div class="texto-intro">IMPORTANTE: La respuesta oficial a tu
+						solicitud será enviada a tu Correo Electrónico por la Escuela de
+						Postgrado de la Facultad de Artes. La Escuela de
+						Postgrado es la única fuente de información oficial respecto de la
+						tramitación de estas solicitudes.
+					</div>		  
 			  </div>
 			</div>
-			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentanaPostulacion()">Finalizar</button>
+			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentanaAcademica()">Finalizar</button>
 		</div>
 	</body>
 </html>

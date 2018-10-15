@@ -3,7 +3,6 @@ package com.manashiki.uchilearte.solicitud.web.model;
 import java.io.Serializable;
 
 import com.manashiki.uchilearte.servdto.dto.entities.formulario.ArchivoSolicitudDTO;
-import com.manashiki.uchilearte.servdto.dto.entities.formulario.ProgramaUniversidadDTO;
 import com.manashiki.uchilearte.servdto.dto.entities.formulario.ProgramaUniversidadPostulacionDTO;
 
 public class SolicitudPostulacionModel implements Serializable {

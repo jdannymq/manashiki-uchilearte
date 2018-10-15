@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<html ng-app="solicitudPostulacionExito" lang="en">
+<html ng-app="solicitudAcademicaExito" lang="en">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,7 +31,7 @@
 		<script type="text/javascript" src="/uchile-facultad-de-arte-new/lib/ui-bootstrap-tpls-1.1.2.min.js"></script>
 		
 		<!-- jQuery Global Controller-->		
-		<script type="text/javascript" src="/uchile-facultad-de-arte-new/main/controllers/solicitudPostulacionExitoController.js?version=1.0.1"></script>
+		<script type="text/javascript" src="/uchile-facultad-de-arte-new/main/controllers/solicitudAcademicaExitoController.js?version=1.0.1"></script>
 
 		<!-- JS generales de Desarrollo-->
 		<script src="/uchile-facultad-de-arte-new/assets/js/swiper.min.js"></script>
@@ -50,7 +50,7 @@
 		<script src="/uchile-facultad-de-arte-new/assets/js/ux/listing/main.js"></script>
 		<script src="/uchile-facultad-de-arte-new/assets/js/validar_es.js"></script>
 </head>
-	<body class="body" ng-controller="SolicitudPostulacionExitoController" ng-init="leerSolicitudPostulacionError();">
+	<body class="body" ng-controller="SolicitudAcademicaExitoController" ng-init="leerSolicitudAcademicaError();">
 		<div class="banner">
 			<img src='/uchile-facultad-de-arte-new/administracion-solicitudes/banner_1.jpg' border='0' alt="banner 1" />
 		</div>	
@@ -68,7 +68,7 @@
 				</div>  
 			  </div>
 			</div>
-			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentanaPostulacion()">Finalizar</button>
+			<button id="salir" type="button" class="btn botones-abajos" ng-click="cerrarVentanaAcademica()">Finalizar</button>
 		</div>
 	</body>
 </html>

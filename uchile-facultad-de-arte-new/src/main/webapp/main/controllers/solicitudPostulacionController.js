@@ -244,7 +244,7 @@ solicitudPostulacionApp.controller('PostulacionController', [ '$scope', '$http',
 		/*datos de la pestaña de Otros*/
 		$scope.enteroPrograma = $('input[id=enteroPrograma]');
 		$scope.financiamineto = $('input[id=financiamineto]');
-		$scope.comentario = $('input[id=comentario]');
+		$scope.comentario = $('textarea[id=comentario]');
 		$scope.msgOtro = $('div[id=msgOtro]');
 		$scope.botonSiguienteOtro = $('button[id=siguienteOtro]');
 		$scope.botonAtrasOtro = $('button[id=atrasOtro]');	
@@ -628,13 +628,39 @@ solicitudPostulacionApp.controller('PostulacionController', [ '$scope', '$http',
     		$scope.msgOtro.html("<span><strong>*</strong> Debe ingresar los comentarios u observaciones (si amerita).</span>");
     		$scope.msgOtro.attr('style','display: block;')
     		return false;
+    	}else{
+    		var verificacionTexto = $scope.extensionMensaje($scope.comentario.val());
+    		if(!verificacionTexto){
+        		$scope.msgOtro.html("<span><strong>*</strong> El comentario no debe sobrepasar los 850 caracteres.</span>");
+        		$scope.msgOtro.attr('style','display: block;')
+        		return false;    			
+    		}
     	}   	
 		
     	$scope.msgOtro.html("");
 		$scope.msgOtro.attr('style','display: none;')
 		console.log('======================================================================================================================');
 		return true;
-	}	
+	}
+	
+	$scope.extensionMensaje = function(comentario){ 
+		var comentarioAprobado = false;
+        var totalMensaje = comentario.length - $scope.nEspacios(comentario); 
+        if (totalMensaje < 851) {     
+        	comentarioAprobado = true;
+        }  
+        return comentarioAprobado;
+	} 
+	
+	$scope.nEspacios = function(dato){ 
+		var contador = 0; 
+		for (var i = 0; i < dato.length; i ++){
+			contador += (dato.charAt(i) == " ") ? 1:0 
+		}  
+		return contador; 
+	} 
+	
+	
 
 	$scope.validarDataArchivo = function() {
 		var file = $('#archivo1').prop("files")[0];

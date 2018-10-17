@@ -322,8 +322,14 @@ solicitudAcademicaApp.controller('SolicitudAcademicaController', [ '$scope', '$h
     		$scope.msgPersonal.attr('style','display: block;')
     		$scope.msgPersonal.removeClass('alert-success');  
 			$scope.msgPersonal.addClass('alert-danger');
-
     		return false;
+    	}else{
+    		var verificacionTexto = $scope.extensionMensaje($scope.comentario.val());
+    		if(!verificacionTexto){
+        		$scope.msgOtro.html("<span><strong>*</strong> El fundamento no debe sobrepasar los 850 caracteres.</span>");
+        		$scope.msgOtro.attr('style','display: block;')
+        		return false;    			
+    		}
     	}   
 
 		var documento = $scope.validarDataArchivo();
@@ -339,6 +345,22 @@ solicitudAcademicaApp.controller('SolicitudAcademicaController', [ '$scope', '$h
 		return true;
 	}	
 	
+	$scope.extensionMensaje = function(comentario){ 
+		var comentarioAprobado = false;
+        var totalMensaje = comentario.length - $scope.nEspacios(comentario); 
+        if (totalMensaje < 851) {     
+        	comentarioAprobado = true;
+        }  
+        return comentarioAprobado;
+	} 
+	
+	$scope.nEspacios = function(dato){ 
+		var contador = 0; 
+		for (var i = 0; i < dato.length; i ++){
+			contador += (dato.charAt(i) == " ") ? 1:0 
+		}  
+		return contador; 
+	} 	
 
 	$scope.validarDataArchivo = function() {
 		var file = $('#archivo1').prop("files")[0];
